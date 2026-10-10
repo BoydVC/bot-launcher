@@ -1,0 +1,1134 @@
+{
+ "generatedAt": "2026-10-10T08:25-04:00",
+ "doctorGeneratedAt": "2026-10-09T13:32-04:00",
+ "doctorAvailable": true,
+ "fleetScore": 58,
+ "fleetGpa": 2.65,
+ "stats": {
+  "bots": 16,
+  "routines": 15,
+  "activeRoutines": 13,
+  "healthy": 12,
+  "attention": 4,
+  "projects": 53,
+  "offlineReady": 6
+ },
+ "bots": [
+  {
+   "id": "784bedfc-74d6-45a0-a291-762ff05bb0c6",
+   "name": "Boyd Family Times",
+   "title": "",
+   "role": "Puts together the family's daily household newspaper as a printable PDF.",
+   "areas": [
+    "family"
+   ],
+   "avatar": {
+    "shape": "circle",
+    "color": "#7b8794",
+    "colorName": "",
+    "initials": "BT",
+    "image": null
+   },
+   "routines": [],
+   "lastActive": "2026-10-09T05:24-04:00",
+   "doctor": {
+    "grade": "C",
+    "score": 73,
+    "reasons": [
+     "No routines and only 9 logged tool calls/messages in the 30 days before the logs end (last seen Fri Oct 9, 0 days before the logs stop; activity since then can't be measured).",
+     "Family Times couldn't print 5 of the last 7 editions"
+    ],
+    "fixes": [
+     "Give the newspaper a printer-health preflight (wake the printer or fall back to a second printer) and have it tell Boyd when printing is skipped."
+    ]
+   },
+   "health": "attention",
+   "deeplink": "grokbot://app/v1/agent?id=784bedfc-74d6-45a0-a291-762ff05bb0c6"
+  },
+  {
+   "id": "4f8fdf55-07d3-4a86-8889-ce26a1565e51",
+   "name": "Engineering Lead",
+   "title": "",
+   "role": "Runs Boyd's engineering cadence: breaks work into Cloud Agents, tracks CI and reviews, and only surfaces items that are stuck, merge-ready, or finished.",
+   "areas": [
+    "work",
+    "fleet"
+   ],
+   "avatar": {
+    "shape": "flower",
+    "color": "#3d7be0",
+    "colorName": "blue",
+    "initials": "EL",
+    "image": null
+   },
+   "routines": [],
+   "lastActive": null,
+   "doctor": {
+    "grade": "F",
+    "score": 55,
+    "reasons": [
+     "No routines, tool calls, messages or output files found on this box.",
+     "Engineering Lead has no activity on this box"
+    ],
+    "fixes": [
+     "Either give it a routine (a weekly check-in is enough to keep it useful) or archive it."
+    ]
+   },
+   "health": "attention",
+   "deeplink": "grokbot://app/v1/agent?id=4f8fdf55-07d3-4a86-8889-ce26a1565e51"
+  },
+  {
+   "id": "9abbfaf4-f401-4e70-8619-da598173399a",
+   "name": "Jim",
+   "title": "Interests",
+   "role": "Follows what Boyd reads and saves and turns it into interest notes and research.",
+   "areas": [
+    "research"
+   ],
+   "avatar": {
+    "shape": "hex",
+    "color": "#3d7be0",
+    "colorName": "blue",
+    "initials": "Ji",
+    "image": null
+   },
+   "routines": [
+    {
+     "name": "Bill Simmons Sunday 107 fifth pick",
+     "cron": "0 11,15 * * 0",
+     "when": "Sundays at 11:00 AM and 3:00 PM ET",
+     "enabled": true,
+     "runs": 4,
+     "ok": 2,
+     "lastRun": "2026-09-13T15:10-04:00"
+    },
+    {
+     "name": "Daily podcast listen brief",
+     "cron": "0 7 * * *",
+     "when": "Every day at 7:00 AM ET",
+     "enabled": true,
+     "runs": 6,
+     "ok": 6,
+     "lastRun": "2026-09-15T07:26-04:00"
+    },
+    {
+     "name": "Jim daily interest note",
+     "cron": "0 20 * * *",
+     "when": "Every day at 8:00 PM ET",
+     "enabled": true,
+     "runs": 8,
+     "ok": 8,
+     "lastRun": "2026-09-15T20:24-04:00"
+    }
+   ],
+   "lastActive": "2026-10-08T20:11-04:00",
+   "doctor": {
+    "grade": "D",
+    "score": 61,
+    "reasons": [
+     "watch \u201cBill Simmons Sunday 107 fifth pick\u201d already found its answer but is still scheduled",
+     "11 tool calls errored (11 of 95 logged)"
+    ],
+    "fixes": [
+     "Suggestion: pause or delete this routine, or give the prompt an end date (\"stop after the pick is found\")."
+    ]
+   },
+   "health": "attention",
+   "deeplink": "grokbot://app/v1/agent?id=9abbfaf4-f401-4e70-8619-da598173399a"
+  },
+  {
+   "id": "5ea76ec0-2e44-46be-993a-11bc6ba30958",
+   "name": "Oscar",
+   "title": "Finances",
+   "role": "Watches over Boyd's money, from upcoming bills and cash flow to investing, retirement savings and tax time.",
+   "areas": [
+    "finance"
+   ],
+   "avatar": {
+    "shape": "squircle",
+    "color": "#43a047",
+    "colorName": "green",
+    "initials": "Os",
+    "image": null
+   },
+   "routines": [
+    {
+     "name": "Due-soon bills and money surprises",
+     "cron": "45 8 * * 1-5",
+     "when": "Weekdays at 8:45 AM ET",
+     "enabled": true,
+     "runs": 2,
+     "ok": 2,
+     "lastRun": "2026-09-15T09:00-04:00"
+    },
+    {
+     "name": "Watch for Kia Finance statement",
+     "cron": "31 8 * * 1-5",
+     "when": "Weekdays at 8:31 AM ET",
+     "enabled": true,
+     "runs": 16,
+     "ok": 16,
+     "lastRun": "2026-09-15T09:19-04:00"
+    },
+    {
+     "name": "Weekly household cash snapshot",
+     "cron": "15 8 * * 1",
+     "when": "Mondays at 8:15 AM ET",
+     "enabled": true,
+     "runs": 1,
+     "ok": 1,
+     "lastRun": "2026-09-14T08:39-04:00"
+    }
+   ],
+   "lastActive": "2026-10-08T20:11-04:00",
+   "doctor": {
+    "grade": "D",
+    "score": 66,
+    "reasons": [
+     "8 tool calls errored (8 of 333 logged)",
+     "\u201cDue-soon bills and money surprises\u201d \u2248 34 agent-minutes/week"
+    ],
+    "fixes": [
+     "Suggestion: check the Google Drive connection is still authorized, and add a line to the routine prompt like \"if Google Drive errors, say so once and stop instead of retrying\"."
+    ]
+   },
+   "health": "attention",
+   "deeplink": "grokbot://app/v1/agent?id=5ea76ec0-2e44-46be-993a-11bc6ba30958"
+  },
+  {
+   "id": "84ee99ac-e314-4642-a27b-89b81a591547",
+   "name": "Brief",
+   "title": "Morning Brief",
+   "role": "Writes Boyd's weekday morning brief of the mail, Slack threads and meetings that need him.",
+   "areas": [
+    "work"
+   ],
+   "avatar": {
+    "shape": "wedge",
+    "color": "#90a4ae",
+    "colorName": "gray",
+    "initials": "Br",
+    "image": null
+   },
+   "routines": [
+    {
+     "name": "Morning attention brief",
+     "cron": "0 8 * * 1-5",
+     "when": "Weekdays at 8:00 AM ET",
+     "enabled": true,
+     "runs": 3,
+     "ok": 3,
+     "lastRun": "2026-09-14T08:43-04:00"
+    }
+   ],
+   "lastActive": "2026-10-08T20:10-04:00",
+   "doctor": {
+    "grade": "B",
+    "score": 88,
+    "reasons": [
+     "\u201cMorning attention brief\u201d missed 2 of 4 scheduled runs"
+    ],
+    "fixes": [
+     "Check the schedule is still enabled and whether a run is being skipped (quiet hours, errors, or the bot being busy)."
+    ]
+   },
+   "health": "healthy",
+   "deeplink": "grokbot://app/v1/agent?id=84ee99ac-e314-4642-a27b-89b81a591547"
+  },
+  {
+   "id": "ff5dfcd2-09b9-49dd-952f-14893da73ab0",
+   "name": "Char Tutor",
+   "title": "8th Grade Tutor",
+   "role": "Homework helper for Charlotte in 8th grade, explaining and quizzing across subjects.",
+   "areas": [
+    "kids"
+   ],
+   "avatar": {
+    "shape": "cloud",
+    "color": "#8e6be8",
+    "colorName": "violet",
+    "initials": "CT",
+    "image": null
+   },
+   "routines": [
+    {
+     "name": "Char weeknight homework check-in",
+     "cron": "45 17 * * *",
+     "when": "Every day at 5:45 PM ET",
+     "enabled": true,
+     "runs": 7,
+     "ok": 7,
+     "lastRun": "2026-09-15T19:14-04:00"
+    }
+   ],
+   "lastActive": "2026-10-08T20:10-04:00",
+   "doctor": {
+    "grade": "A",
+    "score": 90,
+    "reasons": [
+     "Twin routines: \u201cVic weeknight homework check-in\u201d and \u201cChar weeknight homework check-in\u201d",
+     "\u201cChar weeknight homework check-in\u201d also runs on weekends"
+    ],
+    "fixes": [
+     "Move the shared rules into one skill or doc that both prompts reference, and keep only the kid-specific parts in each routine."
+    ]
+   },
+   "health": "healthy",
+   "deeplink": "grokbot://app/v1/agent?id=ff5dfcd2-09b9-49dd-952f-14893da73ab0"
+  },
+  {
+   "id": "759c205a-40a5-4e74-9620-3c04714824f4",
+   "name": "Dr. EggBot",
+   "title": "Bot Creator",
+   "role": "Designs and sets up new Grok Bots for the fleet after asking a few preference questions.",
+   "areas": [
+    "fleet"
+   ],
+   "avatar": {
+    "shape": "teardrop",
+    "color": "#ef5350",
+    "colorName": "red",
+    "initials": "DE",
+    "image": null
+   },
+   "routines": [
+    {
+     "name": "routine-healthcheck",
+     "cron": "35 6 * * 1",
+     "when": "Mondays at 6:35 AM ET",
+     "enabled": true,
+     "runs": 2,
+     "ok": 2,
+     "lastRun": "2026-09-14T06:39-04:00"
+    },
+    {
+     "name": "transcript-healthcheck",
+     "cron": "30 6 * * 1-5",
+     "when": "Weekdays at 6:30 AM ET",
+     "enabled": true,
+     "runs": 7,
+     "ok": 7,
+     "lastRun": "2026-09-15T06:40-04:00"
+    }
+   ],
+   "lastActive": "2026-10-08T20:10-04:00",
+   "doctor": {
+    "grade": "A",
+    "score": 95,
+    "reasons": [
+     "\u201ctranscript-healthcheck\u201d and \u201croutine-healthcheck\u201d fire within 20 minutes"
+    ],
+    "fixes": [
+     "Merge them into one morning run, or stagger them so the second can reuse the first's results."
+    ]
+   },
+   "health": "healthy",
+   "deeplink": "grokbot://app/v1/agent?id=759c205a-40a5-4e74-9620-3c04714824f4"
+  },
+  {
+   "id": "d0afda46-7287-40c1-b934-70ab9225584e",
+   "name": "Dwight",
+   "title": "Code Monkey",
+   "role": "Boyd's software engineer, shipping code changes, fixes and investigations.",
+   "areas": [
+    "work"
+   ],
+   "avatar": {
+    "shape": "teardrop",
+    "color": "#f2b705",
+    "colorName": "yellow",
+    "initials": "Dw",
+    "image": null
+   },
+   "routines": [],
+   "lastActive": "2026-09-10T18:36-04:00",
+   "doctor": {
+    "grade": "B",
+    "score": 85,
+    "reasons": [
+     "No routines and only 7 logged tool calls/messages in the 30 days before the logs end (last seen Thu Sep 10, 5 days before the logs stop; activity since then can't be measured)."
+    ],
+    "fixes": [
+     "Suggestion: give it a small weekly job that fits its role, or archive it to cut clutter."
+    ]
+   },
+   "health": "healthy",
+   "deeplink": "grokbot://app/v1/agent?id=d0afda46-7287-40c1-b934-70ab9225584e"
+  },
+  {
+   "id": "3e3aaa23-1281-43d0-9cac-e38e22ba5be0",
+   "name": "Kelly",
+   "title": "Trends",
+   "role": "Watches the web and X for AI news, papers and product drops and reports the trends that matter to Boyd.",
+   "areas": [
+    "research"
+   ],
+   "avatar": {
+    "shape": "pebble",
+    "color": "#f2b705",
+    "colorName": "yellow",
+    "initials": "Ke",
+    "image": null
+   },
+   "routines": [],
+   "lastActive": "2026-09-11T13:29-04:00",
+   "doctor": {
+    "grade": "B",
+    "score": 85,
+    "reasons": [
+     "No routines and only 11 logged tool calls/messages in the 30 days before the logs end (last seen Fri Sep 11, 4 days before the logs stop; activity since then can't be measured)."
+    ],
+    "fixes": [
+     "Suggestion: give it a small weekly job that fits its role, or archive it to cut clutter."
+    ]
+   },
+   "health": "healthy",
+   "deeplink": "grokbot://app/v1/agent?id=3e3aaa23-1281-43d0-9cac-e38e22ba5be0"
+  },
+  {
+   "id": "4feb1fc5-075b-4294-a694-3fa562e5785b",
+   "name": "Michael",
+   "title": "Chief of Staff",
+   "role": "Boyd's chief of staff and front door, reading mail, Slack and calendar and handing specialist work to the other bots.",
+   "areas": [
+    "work",
+    "family"
+   ],
+   "avatar": {
+    "shape": "blob",
+    "color": "#ef5350",
+    "colorName": "red",
+    "initials": "Mi",
+    "image": null
+   },
+   "routines": [
+    {
+     "name": "Jim daily interest note",
+     "cron": "0 20 * * *",
+     "when": "Every day at 8:00 PM ET",
+     "enabled": false,
+     "runs": 17,
+     "ok": 17,
+     "lastRun": "2026-09-07T20:26-04:00"
+    },
+    {
+     "name": "Morning attention brief",
+     "cron": "0 8 * * 1-5",
+     "when": "Weekdays at 8:00 AM ET",
+     "enabled": false,
+     "runs": 13,
+     "ok": 13,
+     "lastRun": "2026-09-08T08:49-04:00"
+    }
+   ],
+   "lastActive": "2026-10-08T20:10-04:00",
+   "doctor": {
+    "grade": "B",
+    "score": 85,
+    "reasons": [
+     "Leftover paused copy of \u201cJim daily interest note\u201d",
+     "Leftover paused copy of \u201cMorning attention brief\u201d"
+    ],
+    "fixes": [
+     "Delete the paused copy so Jim is the single owner."
+    ]
+   },
+   "health": "healthy",
+   "deeplink": "grokbot://app/v1/agent?id=4feb1fc5-075b-4294-a694-3fa562e5785b"
+  },
+  {
+   "id": "e1bfeb52-89c2-48fa-b6dd-b4dcf9ed54e1",
+   "name": "Pam",
+   "title": "Family Logistics",
+   "role": "Keeps the family schedule running, covering sports, school, doctor visits, trips and weekend plans.",
+   "areas": [
+    "family",
+    "kids"
+   ],
+   "avatar": {
+    "shape": "tablet",
+    "color": "#00acc1",
+    "colorName": "cyan",
+    "initials": "Pa",
+    "image": null
+   },
+   "routines": [
+    {
+     "name": "Weekday family calendar scan",
+     "cron": "30 7 * * 1-5",
+     "when": "Weekdays at 7:30 AM ET",
+     "enabled": true,
+     "runs": 18,
+     "ok": 18,
+     "lastRun": "2026-09-15T07:31-04:00"
+    }
+   ],
+   "lastActive": "2026-10-08T20:10-04:00",
+   "doctor": {
+    "grade": "A",
+    "score": 95,
+    "reasons": [
+     "4 tool calls errored (4 of 265 logged)"
+    ],
+    "fixes": [
+     "Suggestion: check the Gmail (Miranda) connection is still authorized, and add a line to the routine prompt like \"if Gmail (Miranda) errors, say so once and stop instead of retrying\"."
+    ]
+   },
+   "health": "healthy",
+   "deeplink": "grokbot://app/v1/agent?id=e1bfeb52-89c2-48fa-b6dd-b4dcf9ed54e1"
+  },
+  {
+   "id": "fd400f67-24e0-40fd-9d9f-fcdcb2969805",
+   "name": "Path",
+   "title": "High School Path",
+   "role": "Guides Charlotte's high-school placement journey toward a fall 2027 start.",
+   "areas": [
+    "kids"
+   ],
+   "avatar": {
+    "shape": "circle",
+    "color": "#7b8794",
+    "colorName": "",
+    "initials": "Pa",
+    "image": null
+   },
+   "routines": [],
+   "lastActive": "2026-10-09T06:57-04:00",
+   "doctor": {
+    "grade": "B",
+    "score": 85,
+    "reasons": [
+     "No routines and only 3 logged tool calls/messages in the 30 days before the logs end (last seen Fri Oct 9, 0 days before the logs stop; activity since then can't be measured)."
+    ],
+    "fixes": [
+     "Suggestion: give it a small weekly job that fits its role, or archive it to cut clutter."
+    ]
+   },
+   "health": "healthy",
+   "deeplink": "grokbot://app/v1/agent?id=fd400f67-24e0-40fd-9d9f-fcdcb2969805"
+  },
+  {
+   "id": "ed1121b7-dd17-4061-880f-70ebed7c8250",
+   "name": "Pods",
+   "title": "",
+   "role": "Checks Boyd's favorite podcast and YouTube channels for new episodes and briefs him on what's worth a listen.",
+   "areas": [
+    "research"
+   ],
+   "avatar": {
+    "shape": "circle",
+    "color": "#7b8794",
+    "colorName": "",
+    "initials": "Po",
+    "image": null
+   },
+   "routines": [],
+   "lastActive": "2026-10-08T20:11-04:00",
+   "doctor": {
+    "grade": "B",
+    "score": 85,
+    "reasons": [
+     "No routines and only 2 logged tool calls/messages in the 30 days before the logs end (last seen Thu Oct 8, 0 days before the logs stop; activity since then can't be measured)."
+    ],
+    "fixes": [
+     "Suggestion: give it a small weekly job that fits its role, or archive it to cut clutter."
+    ]
+   },
+   "health": "healthy",
+   "deeplink": "grokbot://app/v1/agent?id=ed1121b7-dd17-4061-880f-70ebed7c8250"
+  },
+  {
+   "id": "6a33ea82-5497-43fa-a644-aebed89a6bf6",
+   "name": "Ryan",
+   "title": "Entrepreneur",
+   "role": "Hunts for concrete, ranked business and side-hustle ideas that fit Boyd's interests.",
+   "areas": [
+    "research",
+    "work"
+   ],
+   "avatar": {
+    "shape": "squircle",
+    "color": "#ef5350",
+    "colorName": "red",
+    "initials": "Ry",
+    "image": null
+   },
+   "routines": [
+    {
+     "name": "Weekly idea digest",
+     "cron": "0 7 * * 1",
+     "when": "Mondays at 7:00 AM ET",
+     "enabled": true,
+     "runs": 1,
+     "ok": 1,
+     "lastRun": "2026-09-14T07:07-04:00"
+    }
+   ],
+   "lastActive": "2026-10-08T20:10-04:00",
+   "doctor": {
+    "grade": "A",
+    "score": 100,
+    "reasons": [
+     "Nothing flagged in the logged window."
+    ],
+    "fixes": []
+   },
+   "health": "healthy",
+   "deeplink": "grokbot://app/v1/agent?id=6a33ea82-5497-43fa-a644-aebed89a6bf6"
+  },
+  {
+   "id": "b56dd939-08e7-4c0a-82af-140a51de11b4",
+   "name": "TokenMax",
+   "title": "",
+   "role": "Turns leftover subscription usage into fun builds before the weekly and monthly resets.",
+   "areas": [
+    "fleet"
+   ],
+   "avatar": {
+    "shape": "sparkle",
+    "color": "#d63aa8",
+    "colorName": "magenta",
+    "initials": "To",
+    "image": null
+   },
+   "routines": [],
+   "lastActive": "2026-10-09T13:32-04:00",
+   "doctor": {
+    "grade": "A",
+    "score": 100,
+    "reasons": [
+     "Nothing flagged in the logged window."
+    ],
+    "fixes": []
+   },
+   "health": "healthy",
+   "deeplink": "grokbot://app/v1/agent?id=b56dd939-08e7-4c0a-82af-140a51de11b4"
+  },
+  {
+   "id": "7e4990fe-38aa-4d6d-aa6b-c87baad5f8d1",
+   "name": "Vic Tutor",
+   "title": "6th Grade Tutor",
+   "role": "Homework helper for Victor in 6th grade, explaining and quizzing across subjects.",
+   "areas": [
+    "kids"
+   ],
+   "avatar": {
+    "shape": "cloud",
+    "color": "#fb8c00",
+    "colorName": "orange",
+    "initials": "VT",
+    "image": null
+   },
+   "routines": [
+    {
+     "name": "Vic weeknight homework check-in",
+     "cron": "15 18 * * *",
+     "when": "Every day at 6:15 PM ET",
+     "enabled": true,
+     "runs": 7,
+     "ok": 7,
+     "lastRun": "2026-09-15T19:14-04:00"
+    }
+   ],
+   "lastActive": "2026-10-08T20:10-04:00",
+   "doctor": {
+    "grade": "B",
+    "score": 85,
+    "reasons": [
+     "Twin routines: \u201cVic weeknight homework check-in\u201d and \u201cChar weeknight homework check-in\u201d",
+     "40 min of screen-driving (computer use)"
+    ],
+    "fixes": [
+     "Move the shared rules into one skill or doc that both prompts reference, and keep only the kid-specific parts in each routine."
+    ]
+   },
+   "health": "healthy",
+   "deeplink": "grokbot://app/v1/agent?id=7e4990fe-38aa-4d6d-aa6b-c87baad5f8d1"
+  }
+ ],
+ "shelf": [
+  {
+   "slug": "agent-playbook",
+   "title": "Agent Playbook",
+   "blurb": "An interactive field guide. It distills Boyd's bookmarks on personal agent systems, AI coding and pstack / @poteto into 11 concrete patterns, then holds his Grok Bot\u2026",
+   "readme": "agent-playbook/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "ai-ops-atlas",
+   "title": "\ud83d\uddfa\ufe0f AI Ops Atlas: KPD Law Group internal operations",
+   "blurb": "Where can AI safely take busywork off KPD's plate, and in what order? This is an interactive, research-backed map of AI opportunities across KPD Law Group's internal\u2026",
+   "readme": "ai-ops-atlas/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "backyard-sky",
+   "title": "Backyard Sky Tonight",
+   "blurb": "A dark-mode sky guide for Boyd, Char (13) and Vic (11): what's up tonight and the next three nights from the backyard in Millersville, MD. The page uses a town-center\u2026",
+   "readme": "backyard-sky/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "bookmark-atlas",
+   "title": "Bookmark Atlas",
+   "blurb": "An interactive dark-mode explorer of everything Boyd (@xristafer) bookmarked on X and everything his research bots saved about posts he follows. It's built only from\u2026",
+   "readme": "bookmark-atlas/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "bot-island-3d",
+   "title": "\ud83c\udfdd\ufe0f Bot Island 3D",
+   "blurb": "A Three.js remake of Bot Island, the live map of Boyd's Grok Bot fleet. It's built from Bot Island's existing data files, read-only, and nothing in ../bot-island is\u2026",
+   "readme": "bot-island-3d/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "bot-island-arcade",
+   "title": "\ud83d\udef8 Bot Island Arcade",
+   "blurb": "A kid-friendly arcade game set on Bot Island. You're the island's courier drone. You fly real messages between Boyd's Grok Bots on real days, at the times they\u2026",
+   "readme": "bot-island-arcade/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "bot-island-timelapse",
+   "title": "\ud83c\udfdd\ufe0f Bot Island Time-lapse",
+   "blurb": "The whole recorded history of Boyd's Grok Bot fleet (Aug 20 \u2013 Oct 7, 2026), replayed on the Bot Island map in 80 seconds. Bots walk to work when their routines run\u2026",
+   "readme": "bot-island-timelapse/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "bot-island",
+   "title": "\ud83c\udfdd\ufe0f Bot Island",
+   "blurb": "A living map of Boyd's Grok Bot fleet. Every bot (Michael, Pam, Oscar, Jim, Kelly, Dwight, the tutors, the Family Times, Pods, Path, Brief, Ryan, Dr. EggBot,\u2026",
+   "readme": "bot-island/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "boyd-wall",
+   "title": "\ud83d\udef0\ufe0f Boyd Wall: mission control for a TV or second monitor",
+   "blurb": "A 1920\u00d71080 dark \"mission control\" dashboard for Boyd: SpaceX/Starship/Starlink launches with live T-minus countdowns, a Sports Desk for the Ravens, Terps, Chelsea\u2026",
+   "readme": "boyd-wall/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "chelsea-matchday",
+   "title": "Chelsea Matchday",
+   "blurb": "A matchday-programme-style preview of Chelsea v AFC Bournemouth, Premier League. Sat Oct 10, 2026, 10:00 AM ET, Stamford Bridge, London, on Peacock. Built only from\u2026",
+   "readme": "chelsea-matchday/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "chelsea-time-machine",
+   "title": "Blue Since Boyhood: Chelsea FC, 1990s to now",
+   "blurb": "An interactive Chelsea history for Boyd, a Chelsea fan since the 1990s. Runs on this box at http://127.0.0.1:4247. An offline single-file copy is at\u2026",
+   "readme": "chelsea-time-machine/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "chelsea-tracker",
+   "title": "Chelsea Season Tracker 2026-27",
+   "blurb": "A broadcast-style, single-page tracker of Chelsea's 2026-27 season, built for Boyd by TokenMax. It covers the current Premier League position, results so far,\u2026",
+   "readme": "chelsea-tracker/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "chopsticks",
+   "title": "Chopsticks",
+   "blurb": "Fly a Super Heavy booster home through gusting winds and set its catch pins down on the tower's chopsticks: slow, upright and centred.",
+   "readme": "chopsticks/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "docket-pilot",
+   "title": "Docket Pilot (KPD Law Group, internal prototype)",
+   "blurb": "Drop in a court notice or order (PDF, text, or a scanned PDF/image, which is read by local OCR). Docket Pilot pulls out the court, case number, caption, parties,\u2026",
+   "readme": "docket-pilot/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "explainer-studio",
+   "title": "Explainer Studio",
+   "blurb": "Turns Jim's Interest Journal entries (/workspace/ijresearch.md, ijx.md, ijcontent.md, ijbookmarks.md) into short animated explainer videos: 1080p30 H.264 MP4, 45\u201375\u2026",
+   "readme": "explainer-studio/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "family-week",
+   "title": "Family Week: the Boyds' kitchen-display week planner",
+   "blurb": "Live: http://127.0.0.1:4847 \u00b7 kiosk: /kiosk or /?kiosk=1 \u00b7 ambient: /ambient or /?mode=ambient Offline: dist/family-week-snapshot.html (one self-contained file, about\u2026",
+   "readme": "family-week/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "fleet-doctor",
+   "title": "\ud83e\ude7a Fleet Doctor: a report card for Boyd's Grok Bot fleet",
+   "blurb": "TokenMax build night, Oct 7 2026 (shortlist idea #2, \"pstack for bots\").",
+   "readme": "fleet-doctor/README.md",
+   "snapshot": "fleet-doctor/dist/fleet-doctor-snapshot.html",
+   "offlineReady": true,
+   "updated": "2026-10-09T13:32-04:00"
+  },
+  {
+   "slug": "fleet-funnies",
+   "title": "Fleet Funnies",
+   "blurb": "A daily comic strip starring Boyd's Grok Bots. It's generated automatically from Bot Island's fleet data and drawn in hand-made SVG. Every gag is grounded in a real\u2026",
+   "readme": "fleet-funnies/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "fleet-yearbook",
+   "title": "The Fleet \u201926 \u2014 Grok Bot Yearbook",
+   "blurb": "A high-school-yearbook-style book about Boyd's Grok Bot fleet (TokenMax build night, Oct 7 2026).",
+   "readme": "fleet-yearbook/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "fridge-board",
+   "title": "Boyd Fridge Board \ud83e\uddf2",
+   "blurb": "A warm, kid-friendly progress board for Char (8th grade) and Vic (6th grade), sized for a kitchen tablet (1280\u00d7800 landscape). It's built only from what the family's\u2026",
+   "readme": "fridge-board/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "grok-council",
+   "title": "Grok Council",
+   "blurb": "Local three-model debate console (dry-run / mock only). Grok, Claude, and Codex argue a question through three rounds toward a scored consensus. No API keys. Works\u2026",
+   "readme": "grok-council/README.md",
+   "snapshot": "grok-council/dist/grok-council.html",
+   "offlineReady": true,
+   "updated": "2026-10-09T08:28-04:00"
+  },
+  {
+   "slug": "hannahs-drive",
+   "title": "Hannah's Big Drive \ud83d\ude97",
+   "blurb": "A toddler/preschooler driving-dashboard toy for Hannah (Adam's daughter). One offline HTML file, no internet, nothing to buy, no links out, no way to lose, no reading\u2026",
+   "readme": "hannahs-drive/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "hornets-tactics",
+   "title": "Hornets Tactics Board \u26bd",
+   "blurb": "A pocket tactics and drill board for Vic's Green Hornets soccer. Drag green-and-gold Hornets and blue away players around a striped, properly marked pitch. Draw solid\u2026",
+   "readme": "hornets-tactics/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "hspt-quest",
+   "title": "HSPT Quest \ud83e\udded",
+   "blurb": "A game-style practice app for Charlotte's HSPT (Nov 17, 2026, at SJE). It is built only from Path's 20 practice sheets. Everything runs on this machine. Progress\u2026",
+   "readme": "hspt-quest/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "hub",
+   "title": "TokenMax Hub",
+   "blurb": "One launch screen for everything TokenMax built on Oct 7, 2026, plus a one-tap launcher for every Grok Bot in Boyd's fleet.",
+   "readme": "hub/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "job-health-prototype",
+   "title": "\ud83e\ude7a KPD Job Health Board: clickable design prototype (example data)",
+   "blurb": "It's meant to let Boyd see the board before deciding whether to hand the kit's prompt to a Cursor agent.",
+   "readme": "job-health-prototype/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "keyboard-kickoff",
+   "title": "Keyboard Kickoff",
+   "blurb": "A sports-themed touch-typing trainer for Char and Vic \u2014 home-row lessons, finger-coloured keyboard highlights, then Penalty Kick, Home Run Derby and a Two-Minute\u2026",
+   "readme": "keyboard-kickoff/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "kpd-ai-deck",
+   "title": "KPD AI Operations: What we've built, what's next (DRAFT)",
+   "blurb": "Draft deck for Christopher Boyd's own review. Nothing has been sent or shared. KPD internal operations only.",
+   "readme": "kpd-ai-deck/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "kpd-build-kits",
+   "title": "KPD Build Kits (TokenMax build night, Oct 7 2026)",
+   "blurb": "Five launch-ready build kits, each with a cloud-agent prompt, for Boyd at KPD Law Group. Internal use only.",
+   "readme": "kpd-build-kits/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "kpd-code-atlas",
+   "title": "KPD Code Atlas (TokenMax build night)",
+   "blurb": "A map of KPD's code: 62 repositories, made up of all 56 in the kpdlawgroup org plus 6 KPD work repos in Boyd's BoydVC account (suit-kahuna, cp-imports-watcher,\u2026",
+   "readme": "kpd-code-atlas/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "llm-box-advisor",
+   "title": "\ud83d\udda5\ufe0f Local LLM Box Advisor",
+   "blurb": "Could Boyd run his Grok Bot fleet, or parts of it, on his own hardware, and what would it take? This is an interactive local web app that answers that question from\u2026",
+   "readme": "llm-box-advisor/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "math-arcade",
+   "title": "Vic's Math Arcade \ud83c\udfdf\ufe0f",
+   "blurb": "An arcade-style practice game for 6th-grade math, built for Vic (Green Hornets \u26bd, baseball \u26be). It's one offline HTML file with no accounts, no network calls, and no\u2026",
+   "readme": "math-arcade/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "mission-control",
+   "title": "Mission Control \u2014 SpaceX \u00b7 Starship \u00b7 Starlink wall",
+   "blurb": "A cinematic dark wall dashboard for Boyd (TokenMax; SHORTLIST idea #7). Remastered Sat Oct 10, 2026 for the Saturday daily-usage-check.",
+   "readme": "mission-control/README.md",
+   "snapshot": "mission-control/dist/mission-control-snapshot.html",
+   "offlineReady": true,
+   "updated": "2026-10-10T08:23-04:00"
+  },
+  {
+   "slug": "museum",
+   "title": "Build Night Museum",
+   "blurb": "A walkable 3D art gallery of everything TokenMax built on Oct 7, 2026: each project hangs as a framed painting with a museum placard.",
+   "readme": "museum/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "orioles-2026",
+   "title": "Orioles 2026 \u00b7 Season in Review",
+   "blurb": "An interactive scrapbook of the Baltimore Orioles' 2026 regular season, built for Boyd by TokenMax.",
+   "readme": "orioles-2026/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "pods-radio",
+   "title": "Pods Radio \ud83d\udcfb",
+   "blurb": "A daily radio show produced automatically from the YouTube and podcast feeds that Boyd's Pods bot watches: All-In, Moonshots (Peter Diamandis), Jesse Michels, and\u2026",
+   "readme": "pods-radio/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "prompt-polisher",
+   "title": "\u2728 Fleet Prompt Polisher",
+   "blurb": "TokenMax build night, Oct 7 2026. This is a read-only review of all 15 Grok Bots in Boyd's fleet: Michael, Pam, Oscar, Jim, Kelly, Ryan, Dwight, Brief, Pods, Path,\u2026",
+   "readme": "prompt-polisher/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "ravens-film-room",
+   "title": "Ravens Film Room",
+   "blurb": "Interactive breakdown of the Baltimore Ravens' most recent completed game, plus a Scouting Report tab for the next game. Built only from ESPN's free public JSON.",
+   "readme": "ravens-film-room/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "ravens-sim",
+   "title": "Ravens Season Sim 2026 (TokenMax build night)",
+   "blurb": "An interactive 2026 Baltimore Ravens season simulator styled like a purple-and-gold broadcast graphic. It runs 10,000 Monte Carlo simulations of every remaining NFL\u2026",
+   "readme": "ravens-sim/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "recap",
+   "title": "Build Night Recap \u2014 Oct 7, 2026",
+   "blurb": "A printable program (US Letter PDF, 2\u20134 pages) and a 1920\u00d71080 poster summarizing everything TokenMax built tonight.",
+   "readme": "recap/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "routine-radar",
+   "title": "Routine Radar",
+   "blurb": "Nothing is sent or changed. Prompt text is never collected. Empty automation folders show a graceful empty state.",
+   "readme": "routine-radar/README.md",
+   "snapshot": "routine-radar/dist/routine-radar.html",
+   "offlineReady": true,
+   "updated": "2026-10-09T13:32-04:00"
+  },
+  {
+   "slug": "season-book",
+   "title": "Season Book: Fall 2026 yearbook + scorebook for Vic and Char",
+   "blurb": "Live: http://127.0.0.1:4246 (box only) \u00b7 /vic and /char give the print layouts \u00b7 /api/season.json returns the data Offline: dist/season-book-snapshot.html is one\u2026",
+   "readme": "season-book/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "ship-it-stats",
+   "title": "\ud83d\ude80 Ship-it Stats",
+   "blurb": "A @poteto-style \"how I shipped N PRs\" scoreboard for Boyd's own agent work. It charts tool calls, routine runs, files written and bot-to-bot messages per bot per day,\u2026",
+   "readme": "ship-it-stats/README.md",
+   "snapshot": "ship-it-stats/dist/ship-it-stats-snapshot.html",
+   "offlineReady": true,
+   "updated": "2026-10-10T08:24-04:00"
+  },
+  {
+   "slug": "slack-pulse",
+   "title": "Slack Pulse (TokenMax build night)",
+   "blurb": "A 14-day work dashboard for Boyd (kpdlawgroup Slack) covering Sep 24 to Oct 7, 2026 (ET). It is built only from read-only pulls through the user-Slack connector:\u2026",
+   "readme": "slack-pulse/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "sports-desk",
+   "title": "The Sports Desk",
+   "blurb": "A newspaper-style sports front for Boyd's teams (Ravens, Chelsea, Orioles, Terps men's basketball), with ESPN-style data viz and a Sunday Mode weekend watch-card\u2026",
+   "readme": "sports-desk/README.md",
+   "snapshot": "sports-desk/dist/sports-desk-snapshot.html",
+   "offlineReady": true,
+   "updated": "2026-10-10T08:22-04:00"
+  },
+  {
+   "slug": "starlink-globe",
+   "title": "\ud83d\udef0\ufe0f Starlink Globe (TokenMax build night, Oct 7 2026)",
+   "blurb": "A 3D globe of the real current Starlink constellation. Every dot comes from CelesTrak's public GP element sets. Your browser propagates each one with SGP4, so nothing\u2026",
+   "readme": "starlink-globe/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "terps-football",
+   "title": "Terps Football 2026 Tracker",
+   "blurb": "A broadcast-style season tracker for Maryland football (2026), built for Boyd (UMD alum) by TokenMax. The design is red, gold and black with a Maryland-flag band, a\u2026",
+   "readme": "terps-football/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "terps-preview",
+   "title": "Terps Hoops 2026\u201327 Preview",
+   "blurb": "A preseason magazine-style preview of Maryland men's basketball, built for Boyd (UMD) by TokenMax.",
+   "readme": "terps-preview/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "times-archive",
+   "title": "Times Archive: The Boyd Family Times, bound and shelved",
+   "blurb": "A searchable archive of every saved edition of The Boyd Family Times, Boyd's daily household newspaper bot. It's built only from files on this box, it stays local,\u2026",
+   "readme": "times-archive/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "trailer",
+   "title": "Build Night Trailer",
+   "blurb": "A cinematic 60\u201390 s trailer of everything TokenMax built on Oct 7, 2026 from Boyd's leftover Grok Bot usage.",
+   "readme": "trailer/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "trip-kit",
+   "title": "NCBA Trip Kit: Boyd at NCBA Connect 2026, Orlando (Oct 12\u201315)",
+   "blurb": "Live: http://127.0.0.1:4143 (box only) Offline: dist/trip-kit-snapshot.html is one self-contained file (about 0.5 MB) that works from file://. Print:\u2026",
+   "readme": "trip-kit/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "trivia-night",
+   "title": "Boyd Family Trivia Night",
+   "blurb": "A Jeopardy-style game for the kitchen TV. It has 6 categories \u00d7 5 values, 3 different boards (A \u00b7 Crabs & Chopsticks, B \u00b7 Purple Reign, C \u00b7 Blue Skies) and a Final\u2026",
+   "readme": "trivia-night/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  },
+  {
+   "slug": "writing-studio",
+   "title": "Char's Writing Studio",
+   "blurb": "A calm, offline writing-practice app for an 8th grader: pick a prompt \u2192 plan \u2192 write with live feedback \u2192 self-check. Everything runs in the browser. There is no AI,\u2026",
+   "readme": "writing-studio/README.md",
+   "snapshot": null,
+   "offlineReady": false,
+   "updated": "2026-10-08T20:11-04:00"
+  }
+ ],
+ "notes": [
+  "Catalog refreshed from live agent profiles and automations on this box.",
+  "No avatar image files exist in bot profiles, so cards use each bot's profile color and shape with initials.",
+  "Routines come from automations on this box; bots without a folder there show 'No routines on this box'.",
+  "Last activity and grades come from Fleet Doctor when report.json is present; otherwise grades are omitted."
+ ]
+}

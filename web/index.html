@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bot Launcher · Boyd's Grok Bot app store</title>
+<style>
+:root{
+  --bg:#0b0f14;--panel:#141a22;--panel2:#1a222d;--line:#2a3442;--ink:#e8edf3;--mute:#8fa0b3;
+  --acc:#7cc4ff;--acc2:#c792ea;--ok:#4cc38a;--warn:#f2b705;--bad:#ef5350;--focus:#9ad0ff;
+}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+a{color:var(--acc)}
+.wrap{max-width:1320px;margin:0 auto;padding:24px 20px 64px}
+header.hero{display:grid;grid-template-columns:1.4fr .9fr;gap:18px;align-items:stretch;margin-bottom:14px}
+@media (max-width:900px){header.hero{grid-template-columns:1fr}}
+.hero-copy h1{margin:0;font-size:30px;letter-spacing:-.02em}
+.hero-copy h1 span{background:linear-gradient(90deg,#7cc4ff,#c792ea,#4cc38a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mute);margin-top:6px;max-width:52ch}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 12px;min-width:88px}
+.stat b{display:block;font-size:20px;line-height:1.1}.stat small{color:var(--mute);font-size:11.5px}
+.stat.warn b{color:var(--warn)}.stat.ok b{color:var(--ok)}.stat.acc b{color:var(--acc)}
+.map-panel{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:12px 14px 10px;display:flex;flex-direction:column;min-height:180px}
+.map-panel h2{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--mute);letter-spacing:.04em;text-transform:uppercase}
+#fleetmap{width:100%;height:150px;display:block}
+.map-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;font-size:11.5px;color:var(--mute)}
+.map-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:1px}
+.controls{position:sticky;top:0;z-index:8;background:rgba(11,15,20,.92);backdrop-filter:blur(10px);padding:12px 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center;border-bottom:1px solid var(--line);margin-bottom:18px}
+#q{flex:1 1 260px;min-width:0;background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px 14px;font-size:15px}
+#q:focus,.chip:focus-visible,.open:focus-visible,.card:focus-visible,.book:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-color:transparent}
+.hint{color:var(--mute);font-size:12px;white-space:nowrap}
+.hint kbd{background:var(--panel2);border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:11px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 13px;font-size:13px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--acc);color:#04121f;border-color:var(--acc);font-weight:600}
+h2.sec{font-size:18px;margin:22px 0 12px;display:flex;align-items:baseline;gap:10px}
+h2.sec small{color:var(--mute);font-weight:400;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:border-color .15s,box-shadow .15s}
+.card:hover,.card:focus-within{border-color:#3d5168;box-shadow:0 0 0 1px rgba(124,196,255,.12)}
+.card.attn{border-color:rgba(242,183,5,.35)}
+.card[tabindex="0"]{cursor:default}
+.top{display:flex;gap:12px;align-items:center}
+.av{flex:0 0 56px;width:56px;height:56px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35))}
+.who{flex:1;min-width:0}.who h3{margin:0;font-size:17px}.who .t{color:var(--mute);font-size:13px}
+.grade{flex:0 0 auto;text-align:center;border-radius:10px;padding:4px 9px;font-weight:800;font-size:18px;border:1px solid var(--line);line-height:1.1;min-width:44px}
+.grade small{display:block;font-size:10px;font-weight:500;color:var(--mute)}
+.gA{color:#4cc38a;background:rgba(76,195,138,.08)}.gB{color:#7cc4ff;background:rgba(124,196,255,.08)}
+.gC{color:#f2b705;background:rgba(242,183,5,.08)}.gD{color:#fb8c00;background:rgba(251,140,0,.08)}.gF{color:#ef5350;background:rgba(239,83,80,.1)}
+.role{margin:0;font-size:14px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+.tag.health-healthy{color:var(--ok);border-color:rgba(76,195,138,.35)}
+.tag.health-attention{color:var(--warn);border-color:rgba(242,183,5,.4)}
+.rt{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.rt li{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:13px}
+.rt .n{font-weight:600}.rt .w{color:var(--ink)}.rt .m{color:var(--mute);font-size:12px}
+.pill{font-size:11px;border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:1px}
+.on{background:rgba(76,195,138,.15);color:var(--ok)}.off{background:rgba(242,183,5,.13);color:var(--warn)}
+.none{color:var(--mute);font-size:13px;font-style:italic}
+.foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:4px;flex-wrap:wrap}
+.last{color:var(--mute);font-size:12.5px}
+.open{display:inline-flex;align-items:center;gap:6px;background:var(--acc);color:#04121f;text-decoration:none;font-weight:700;border-radius:10px;padding:8px 14px;font-size:14px}
+.open:hover{filter:brightness(1.08)}
+details.doc{font-size:12.5px;color:var(--mute)}details.doc summary{cursor:pointer}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.book{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.book:hover{border-color:#3d5168}
+.book b{font-size:14.5px}.book p{margin:0;color:var(--mute);font-size:12.5px;overflow-wrap:anywhere}
+.book .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.badge{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;border-radius:999px;padding:2px 8px;border:1px solid var(--line);color:var(--mute)}
+.badge.ready{color:var(--ok);border-color:rgba(76,195,138,.4);background:rgba(76,195,138,.08)}
+.badge.readme{color:var(--mute)}
+.book .links{display:flex;gap:12px;font-size:13px;margin-top:auto}
+.empty{grid-column:1/-1;color:var(--mute);padding:20px;text-align:center;border:1px dashed var(--line);border-radius:12px}
+footer{margin-top:34px;color:var(--mute);font-size:12px}footer code{color:var(--ink)}
+@media (max-width:560px){
+  .wrap{padding:16px 12px 40px}h1{font-size:24px!important}.grid{grid-template-columns:1fr}.shelf{grid-template-columns:1fr}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);width:100%;gap:6px}.stat{min-width:0;padding:6px 8px}
+  .stat small{font-size:10.5px;line-height:1.2;display:block}.stat b{font-size:16px}
+  .controls{gap:8px}.chips{flex-wrap:nowrap;overflow-x:auto;width:100%;padding-bottom:2px}.chip{flex:0 0 auto}
+  .hint{display:none}#fleetmap{height:130px}
+}
+</style></head>
+<body><div class="wrap">
+<header class="hero">
+ <div class="hero-copy">
+  <div class="kicker">TokenMax · SHORTLIST #4</div>
+  <h1>🚀 <span>Bot Launcher</span></h1>
+  <div class="sub">Boyd's personal bot app store — every Grok Bot on this box, with Fleet Doctor grades, routines, and one-tap <b>Open chat</b> deeplinks.</div>
+  <div class="stats" id="stats"></div>
+ </div>
+ <div class="map-panel">
+  <h2>Fleet map</h2>
+  <svg id="fleetmap" viewBox="0 0 400 150" role="img" aria-label="Mini fleet map of bots by area and health"></svg>
+  <div class="map-legend">
+   <span><i style="background:#4cc38a"></i>Healthy (A/B)</span>
+   <span><i style="background:#f2b705"></i>Needs attention</span>
+   <span><i style="background:#7b8794"></i>No grade</span>
+  </div>
+ </div>
+</header>
+<div class="controls">
+ <input id="q" type="search" placeholder="Search bots, routines, projects…  (press / )" aria-label="Search" autocomplete="off">
+ <div class="chips" id="chips" role="toolbar" aria-label="Area filters"></div>
+ <span class="hint"><kbd>/</kbd> search · <kbd>←</kbd><kbd>→</kbd> cards · <kbd>Enter</kbd> open</span>
+</div>
+<h2 class="sec" id="fleeth">Your fleet <small id="count"></small></h2>
+<div class="grid" id="grid"></div>
+<h2 class="sec" id="shelfh">🌙 Build Night shelf <small id="scount"></small></h2>
+<div class="shelf" id="shelf"></div>
+<footer id="foot"></footer>
+</div>
+<script>
+const CATALOG = /*__CATALOG__*/null;
+const BASE = "__BASE__";
+const AREAS = [["all","All"],["family","Family"],["work","Work"],["finance","Finance"],["research","Research"],["kids","Kids"],["fleet","Fleet ops"],["attention","Needs attention"]];
+const AREA_LANES = {family:0, work:1, finance:2, research:3, kids:4, fleet:5};
+const SHAPES = {
+ circle:'<circle cx="50" cy="50" r="44"/>',
+ pebble:'<path d="M50 8c26 0 44 16 44 40 0 27-20 44-46 44C22 92 6 76 6 52 6 26 25 8 50 8z"/>',
+ blob:'<path d="M53 6c20 2 38 16 40 36 3 22-10 44-32 50-23 6-48-5-54-27C1 43 13 18 33 9c6-3 13-3 20-3z"/>',
+ squircle:'<path d="M50 6C86 6 94 14 94 50S86 94 50 94 6 86 6 50 14 6 50 6z"/>',
+ teardrop:'<path d="M50 4C50 4 88 44 88 62a38 38 0 0 1-76 0C12 44 50 4 50 4z"/>',
+ cloud:'<path d="M28 84C14 84 6 74 6 62c0-11 8-20 19-21 2-17 14-29 30-29 15 0 27 10 30 24 9 3 15 11 15 21 0 15-11 27-26 27z"/>',
+ wedge:'<path d="M12 14h76c4 0 6 4 4 8L54 90c-2 4-6 4-8 0L8 22c-2-4 0-8 4-8z"/>',
+ hex:'<path d="M50 4l40 23v46L50 96 10 73V27z"/>',
+ sparkle:'<path d="M50 2c4 24 14 34 46 48-32 14-42 24-46 48-4-24-14-34-46-48C36 36 46 26 50 2z"/>',
+ tablet:'<rect x="16" y="6" width="68" height="88" rx="14"/>',
+ flower:'<path d="M50 18c8-14 28-14 28 4 0 10-8 16-14 18 12 2 22 14 14 26-6 10-18 8-22 4 4 12-2 24-16 24s-20-12-16-24c-4 4-16 6-22-4-8-12 2-24 14-26-6-2-14-8-14-18 0-18 20-18 28-4 2 8 6 12 10 14 4-2 8-6 10-14z"/>'
+};
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const NOW = Date.now();
+function ago(iso){
+  if(!iso) return "no activity found";
+  const d=(NOW-new Date(iso))/6e4;
+  if(d<1) return "just now"; if(d<60) return Math.round(d)+" min ago";
+  if(d<1440) return Math.round(d/60)+" h ago"; return Math.round(d/1440)+" days ago";
+}
+function et(iso){
+  if(!iso) return "";
+  return new Date(iso).toLocaleString("en-US",{timeZone:"America/New_York",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})+" ET";
+}
+function avatar(a){
+  if(a.image) return `<img class="av" src="${esc(a.image)}" alt="">`;
+  const shape = SHAPES[a.shape] || SHAPES.circle;
+  const gid = `g${a.initials}${a.shape}${a.colorName||""}`.replace(/[^A-Za-z0-9]/g,"");
+  const fs = a.initials.length>1?34:40;
+  const ty = a.shape==='teardrop'?66:(a.shape==='flower'?54:58);
+  return `<svg class="av" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="${gid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a.color}" stop-opacity="1"/><stop offset="1" stop-color="${a.color}" stop-opacity=".62"/></linearGradient></defs><g fill="url(#${gid})">${shape}</g><text x="50" y="${ty}" text-anchor="middle" dominant-baseline="middle" font-size="${fs}" font-weight="800" fill="#fff" font-family="inherit">${esc(a.initials)}</text></svg>`;
+}
+function card(b){
+  const g=b.doctor;
+  const gr = g ? `<div class="grade g${esc(g.grade)}" title="Fleet Doctor score ${g.score}">${esc(g.grade)}<small>Doctor</small></div>` : `<div class="grade" title="No Fleet Doctor grade"><span style="font-size:12px;color:var(--mute)">—</span><small>Doctor</small></div>`;
+  const rts = b.routines.length
+    ? `<ul class="rt">${b.routines.map(r=>`<li><span class="n">${esc(r.name)}</span><span class="pill ${r.enabled?'on':'off'}">${r.enabled?'active':'paused'}</span><br><span class="w">${esc(r.when)}</span><br><span class="m">${r.runs} runs, ${r.ok} ok${r.lastRun?` · last ${esc(et(r.lastRun))}`:""}</span></li>`).join("")}</ul>`
+    : `<div class="none">No routines on this box</div>`;
+  const doc = g && (g.reasons.length||g.fixes.length)
+    ? `<details class="doc"><summary>Fleet Doctor notes (score ${g.score})</summary>${g.reasons.map(x=>`<div>• ${esc(x)}</div>`).join("")}${g.fixes.map(x=>`<div>→ ${esc(x)}</div>`).join("")}</details>`
+    : "";
+  const healthTag = b.health==="attention"
+    ? `<span class="tag health-attention">needs attention</span>`
+    : (b.health==="healthy" ? `<span class="tag health-healthy">healthy</span>` : "");
+  return `<article class="card${b.health==='attention'?' attn':''}" data-id="${b.id}" data-deeplink="${esc(b.deeplink)}" tabindex="0">
+ <div class="top">${avatar(b.avatar)}<div class="who"><h3>${esc(b.name)}</h3><div class="t">${esc(b.title||"Grok Bot")}</div></div>${gr}</div>
+ <p class="role">${esc(b.role)}</p>
+ <div class="tags">${b.areas.map(a=>`<span class="tag">${esc(a)}</span>`).join("")}${healthTag}</div>
+ ${rts}${doc}
+ <div class="foot"><span class="last" title="${esc(et(b.lastActive))}">Last active ${esc(ago(b.lastActive))}${b.lastActive?` · ${esc(et(b.lastActive))}`:""}</span>
+ <a class="open" href="${esc(b.deeplink)}">💬 Open chat</a></div></article>`;
+}
+function book(s){
+  const link=(p,l)=>p?`<a href="${esc(BASE+p)}" target="_blank" rel="noopener">${l}</a>`:"";
+  const badge = s.offlineReady
+    ? `<span class="badge ready">offline dist</span>`
+    : `<span class="badge readme">README only</span>`;
+  return `<div class="book" tabindex="0"><div class="meta"><b>${esc(s.title)}</b>${badge}</div><p>${esc(s.blurb||"")}</p><div class="links">${link(s.snapshot,"Open snapshot")}${link(s.readme,"README")}</div></div>`;
+}
+let area="all";
+let focusIdx = -1;
+
+function visibleCards(){ return [...document.querySelectorAll("#grid .card")]; }
+
+function render(){
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  const hit = t => !q || t.toLowerCase().includes(q);
+  const bots = CATALOG.bots.filter(b => {
+    const areaOk = area==="all" || (area==="attention" ? b.health==="attention" : b.areas.includes(area));
+    return areaOk && hit([b.name,b.title,b.role,b.areas.join(" "),b.routines.map(r=>r.name+" "+r.when).join(" "), b.health].join(" "));
+  });
+  document.getElementById("grid").innerHTML = bots.length ? bots.map(card).join("") : `<div class="empty">No bots match.</div>`;
+  document.getElementById("count").textContent = `${bots.length} of ${CATALOG.bots.length} bots`;
+  const shelf = CATALOG.shelf.filter(s => hit([s.title,s.slug,s.blurb||""].join(" ")));
+  document.getElementById("shelf").innerHTML = shelf.length ? shelf.map(book).join("") : `<div class="empty">No projects match.</div>`;
+  const ready = shelf.filter(s=>s.offlineReady).length;
+  document.getElementById("scount").textContent = `${shelf.length} projects · ${ready} with offline dist`;
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed", c.dataset.a===area));
+  focusIdx = -1;
+  drawMap(CATALOG.bots);
+}
+
+function drawMap(bots){
+  const svg = document.getElementById("fleetmap");
+  const lanes = ["family","work","finance","research","kids","fleet"];
+  const laneW = 400 / lanes.length;
+  let html = "";
+  lanes.forEach((lane,i)=>{
+    const x = i*laneW + laneW/2;
+    html += `<text x="${x}" y="14" text-anchor="middle" fill="#8fa0b3" font-size="10">${lane}</text>`;
+    html += `<line x1="${x}" y1="22" x2="${x}" y2="140" stroke="#2a3442" stroke-dasharray="2 4"/>`;
+  });
+  const buckets = {};
+  lanes.forEach(l=>buckets[l]=[]);
+  bots.forEach(b=>{
+    const lane = (b.areas||[]).find(a=>AREA_LANES[a]!=null) || "fleet";
+    buckets[lane].push(b);
+  });
+  lanes.forEach((lane,i)=>{
+    const list = buckets[lane];
+    list.forEach((b,j)=>{
+      const x = i*laneW + laneW/2 + ((j%2)?8:-8);
+      const y = 36 + Math.floor(j/1)*18;
+      if(y>140) return;
+      const col = b.health==="healthy" ? "#4cc38a" : (b.health==="attention" ? "#f2b705" : "#7b8794");
+      const r = b.health==="attention" ? 7 : 5.5;
+      html += `<a href="${esc(b.deeplink)}"><circle cx="${x}" cy="${Math.min(y,138)}" r="${r}" fill="${col}" opacity=".92"><title>${esc(b.name)} · ${esc(b.doctor?b.doctor.grade:"—")}</title></circle></a>`;
+      if(j<8) html += `<text x="${x+10}" y="${Math.min(y,138)+3}" fill="#c5d0dc" font-size="8">${esc(b.avatar.initials)}</text>`;
+    });
+  });
+  svg.innerHTML = html;
+}
+
+function init(){
+  const S = CATALOG.stats || {};
+  const B = CATALOG.bots;
+  const act = S.activeRoutines != null ? S.activeRoutines : B.reduce((n,b)=>n+b.routines.filter(r=>r.enabled).length,0);
+  const healthy = S.healthy != null ? S.healthy : B.filter(b=>b.health==="healthy").length;
+  const attn = S.attention != null ? S.attention : B.filter(b=>b.health==="attention").length;
+  const gpa = CATALOG.fleetGpa != null ? Number(CATALOG.fleetGpa).toFixed(2) : "–";
+  document.getElementById("stats").innerHTML = [
+    [B.length,"bots","acc"],
+    [act,"active routines",""],
+    [healthy,"healthy","ok"],
+    [attn,"needs attention","warn"],
+    [gpa,"fleet GPA",""],
+    [CATALOG.shelf.length,"projects",""]
+  ].map(([v,l,cls])=>`<div class="stat ${cls||""}"><b>${v}</b><small>${l}</small></div>`).join("");
+
+  document.getElementById("chips").innerHTML = AREAS.map(([a,l])=>`<button type="button" class="chip" data-a="${a}">${l}</button>`).join("");
+  document.getElementById("chips").addEventListener("click",e=>{
+    const c=e.target.closest(".chip"); if(c){area=c.dataset.a; render();}
+  });
+  document.getElementById("q").addEventListener("input",render);
+
+  document.addEventListener("keydown", e=>{
+    const tag = (e.target && e.target.tagName||"").toLowerCase();
+    if(e.key==="/" && tag!=="input" && tag!=="textarea"){
+      e.preventDefault(); document.getElementById("q").focus(); return;
+    }
+    const cards = visibleCards();
+    if(!cards.length) return;
+    if(e.key==="ArrowRight" || e.key==="ArrowDown"){
+      if(tag==="input") return;
+      e.preventDefault(); focusIdx = Math.min(cards.length-1, focusIdx+1); cards[focusIdx].focus();
+    } else if(e.key==="ArrowLeft" || e.key==="ArrowUp"){
+      if(tag==="input") return;
+      e.preventDefault(); focusIdx = Math.max(0, focusIdx-1); cards[focusIdx].focus();
+    } else if(e.key==="Enter" && document.activeElement && document.activeElement.classList.contains("card")){
+      const a = document.activeElement.querySelector("a.open");
+      if(a){ e.preventDefault(); a.click(); }
+    }
+  });
+
+  const p=new URLSearchParams(location.search);
+  if(p.get("area")) area=p.get("area");
+  if(p.get("q")) document.getElementById("q").value=p.get("q");
+
+  const docNote = CATALOG.doctorAvailable
+    ? `; grades from Fleet Doctor (${esc(et(CATALOG.doctorGeneratedAt))})`
+    : "; Fleet Doctor report missing — grades omitted";
+  document.getElementById("foot").innerHTML =
+    `Built ${esc(et(CATALOG.generatedAt))} from read-only bot profiles and routines on the box${docNote}. ` +
+    `<b>Open chat</b> uses the exact grokbot agent deeplink for each UUID.<br>${(CATALOG.notes||[]).map(esc).join(" ")}`;
+  render();
+  if(p.get("view")==="shelf"){
+    document.getElementById("grid").style.display="none";
+    document.getElementById("fleeth").style.display="none";
+  }
+}
+init();
+</script></body></html>
