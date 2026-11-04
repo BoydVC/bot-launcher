@@ -114,6 +114,7 @@ footer{margin-top:34px;color:var(--mute);font-size:12px}footer code{color:var(--
 <script>
 const CATALOG = /*__CATALOG__*/null;
 const BASE = "__BASE__";
+const GH = "https://github.com/BoydVC/"; // sibling projects live in their own repos, so link there instead of ../../ paths that 404 from a fresh checkout
 const AREAS = [["all","All"],["family","Family"],["work","Work"],["finance","Finance"],["research","Research"],["kids","Kids"],["fleet","Fleet ops"],["attention","Needs attention"]];
 const AREA_LANES = {family:0, work:1, finance:2, research:3, kids:4, fleet:5};
 const SHAPES = {
@@ -170,11 +171,11 @@ function card(b){
  <a class="open" href="${esc(b.deeplink)}">💬 Open chat</a></div></article>`;
 }
 function book(s){
-  const link=(p,l)=>p?`<a href="${esc(BASE+p)}" target="_blank" rel="noopener">${l}</a>`:"";
+  const link=(p,l)=>p?`<a href="${esc(GH+p.split("/")[0]+(p.includes("/")?"/blob/HEAD/"+p.split("/").slice(1).join("/"):""))}" target="_blank" rel="noopener">${l}</a>`:"";
   const badge = s.offlineReady
     ? `<span class="badge ready">offline dist</span>`
     : `<span class="badge readme">README only</span>`;
-  return `<div class="book" tabindex="0"><div class="meta"><b>${esc(s.title)}</b>${badge}</div><p>${esc(s.blurb||"")}</p><div class="links">${link(s.snapshot,"Open snapshot")}${link(s.readme,"README")}</div></div>`;
+  return `<div class="book"><div class="meta"><b>${esc(s.title)}</b>${badge}</div><p>${esc(s.blurb||"")}</p><div class="links">${link(s.snapshot,"Open snapshot")}${link(s.readme,"README")}</div></div>`;
 }
 let area="all";
 let focusIdx = -1;
@@ -223,7 +224,7 @@ function drawMap(bots){
       if(y>140) return;
       const col = b.health==="healthy" ? "#4cc38a" : (b.health==="attention" ? "#f2b705" : "#7b8794");
       const r = b.health==="attention" ? 7 : 5.5;
-      html += `<a href="${esc(b.deeplink)}"><circle cx="${x}" cy="${Math.min(y,138)}" r="${r}" fill="${col}" opacity=".92"><title>${esc(b.name)} · ${esc(b.doctor?b.doctor.grade:"—")}</title></circle></a>`;
+      html += `<a href="${esc(b.deeplink)}" aria-label="Open ${esc(b.name)}"><circle cx="${x}" cy="${Math.min(y,138)}" r="${r}" fill="${col}" opacity=".92"><title>${esc(b.name)} · ${esc(b.doctor?b.doctor.grade:"—")}</title></circle></a>`;
       if(j<8) html += `<text x="${x+10}" y="${Math.min(y,138)+3}" fill="#c5d0dc" font-size="8">${esc(b.avatar.initials)}</text>`;
     });
   });
@@ -288,4 +289,10 @@ function init(){
   }
 }
 init();
-</script></body></html>
+</script><style>.frl-cta{min-height:44px;padding:10px 16px;margin:8px 0;font:inherit;font-weight:700;border-radius:10px;cursor:pointer}</style>
+<script>/* First-Run Lab fix: one obvious primary action */
+(function(){var q=document.getElementById('q');if(!q)return;var b=document.createElement('button');b.type='button';b.className='frl-cta';b.textContent='Search your bots';
+var st=document.createElement('span');st.setAttribute('role','status');var n=0;
+b.addEventListener('click',function(){q.focus();n+=1;st.textContent='Type to filter bots ('+n+')';});
+q.insertAdjacentElement('beforebegin',b);b.insertAdjacentElement('afterend',st);})();</script>
+</body></html>
