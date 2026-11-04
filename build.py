@@ -23,14 +23,14 @@ ROLES = {
     "Ryan": "Hunts for concrete, ranked business and side-hustle ideas that fit Boyd's interests.",
     "Dr. EggBot": "Designs and sets up new Grok Bots for the fleet after asking a few preference questions.",
     "Boyd Family Times": "Puts together the family's daily household newspaper as a printable PDF.",
-    "Vic Tutor": "Homework helper for Victor in 6th grade, explaining and quizzing across subjects.",
+    "Sam Tutor": "Homework helper for Samuel in 6th grade, explaining and quizzing across subjects.",
     "Brief": "Writes Boyd's weekday morning brief of the mail, Slack threads and meetings that need him.",
     "Jim": "Follows what Boyd reads and saves and turns it into interest notes and research.",
     "Dwight": "Boyd's software engineer, shipping code changes, fixes and investigations.",
     "Pam": "Keeps the family schedule running, covering sports, school, doctor visits, trips and weekend plans.",
     "Pods": "Checks Boyd's favorite podcast and YouTube channels for new episodes and briefs him on what's worth a listen.",
-    "Path": "Guides Charlotte's high-school placement journey toward a fall 2027 start.",
-    "Char Tutor": "Homework helper for Charlotte in 8th grade, explaining and quizzing across subjects.",
+    "Path": "Guides Alex's high-school placement journey toward a fall 2027 start.",
+    "Alex Tutor": "Homework helper for Alex in 8th grade, explaining and quizzing across subjects.",
     "TokenMax": "Turns leftover subscription usage into fun builds before the weekly and monthly resets.",
     "Engineering Lead": "Runs Boyd's engineering cadence: breaks work into Cloud Agents, tracks CI and reviews, and only surfaces items that are stuck, merge-ready, or finished.",
 }
@@ -41,14 +41,14 @@ AREAS = {
     "Ryan": ["research", "work"],
     "Dr. EggBot": ["fleet"],
     "Boyd Family Times": ["family"],
-    "Vic Tutor": ["kids"],
+    "Sam Tutor": ["kids"],
     "Brief": ["work"],
     "Jim": ["research"],
     "Dwight": ["work"],
     "Pam": ["family", "kids"],
     "Pods": ["research"],
     "Path": ["kids"],
-    "Char Tutor": ["kids"],
+    "Alex Tutor": ["kids"],
     "TokenMax": ["fleet"],
     "Engineering Lead": ["work", "fleet"],
 }
@@ -131,7 +131,7 @@ def infer_areas(name, title, desc):
         return AREAS[name]
     blob = f"{name} {title} {desc}".lower()
     areas = []
-    if any(k in blob for k in ("tutor", "homework", "kid", "school", "charlotte", "victor")):
+    if any(k in blob for k in ("tutor", "homework", "kid", "school", "alex", "samuel")):
         areas.append("kids")
     if any(k in blob for k in ("family", "calendar", "household", "sports")):
         areas.append("family")
