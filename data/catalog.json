@@ -237,9 +237,9 @@
   },
   {
    "id": "ff5dfcd2-09b9-49dd-952f-14893da73ab0",
-   "name": "Char Tutor",
+   "name": "Alex Tutor",
    "title": "8th Grade Tutor",
-   "role": "Homework helper for Charlotte in 8th grade, explaining and quizzing across subjects.",
+   "role": "Homework helper for Alex in 8th grade, explaining and quizzing across subjects.",
    "areas": [
     "kids"
    ],
@@ -252,7 +252,7 @@
    },
    "routines": [
     {
-     "name": "Char weeknight homework check-in",
+     "name": "Alex weeknight homework check-in",
      "cron": "45 17 * * *",
      "when": "Every day at 5:45 PM ET",
      "enabled": true,
@@ -471,7 +471,7 @@
      "4 tool calls errored (4 of 265 logged)"
     ],
     "fixes": [
-     "Suggestion: check the Gmail (Miranda) connection is still authorized, and add a line to the routine prompt like \"if Gmail (Miranda) errors, say so once and stop instead of retrying\"."
+     "Suggestion: check the Gmail (Jordan) connection is still authorized, and add a line to the routine prompt like \"if Gmail (Jordan) errors, say so once and stop instead of retrying\"."
     ]
    },
    "health": "healthy",
@@ -481,7 +481,7 @@
    "id": "fd400f67-24e0-40fd-9d9f-fcdcb2969805",
    "name": "Path",
    "title": "High School Path",
-   "role": "Guides Charlotte's high-school placement journey toward a fall 2027 start.",
+   "role": "Guides Alex's high-school placement journey toward a fall 2027 start.",
    "areas": [
     "kids"
    ],
@@ -606,9 +606,9 @@
   },
   {
    "id": "7e4990fe-38aa-4d6d-aa6b-c87baad5f8d1",
-   "name": "Vic Tutor",
+   "name": "Sam Tutor",
    "title": "6th Grade Tutor",
-   "role": "Homework helper for Victor in 6th grade, explaining and quizzing across subjects.",
+   "role": "Homework helper for Samuel in 6th grade, explaining and quizzing across subjects.",
    "areas": [
     "kids"
    ],
@@ -621,7 +621,7 @@
    },
    "routines": [
     {
-     "name": "Vic weeknight homework check-in",
+     "name": "Sam weeknight homework check-in",
      "cron": "15 18 * * *",
      "when": "Every day at 6:15 PM ET",
      "enabled": true,
@@ -668,7 +668,7 @@
   {
    "slug": "backyard-sky",
    "title": "Backyard Sky Tonight",
-   "blurb": "A dark-mode sky guide for Boyd, Char (13) and Vic (11): what's up tonight and the next three nights from the backyard in Millersville, MD. The page uses a town-center\u2026",
+   "blurb": "A dark-mode sky guide for Boyd, Alex (13) and Sam (11): what's up tonight and the next three nights from the backyard in Millersville, MD. The page uses a town-center\u2026",
    "readme": "backyard-sky/README.md",
    "snapshot": null,
    "offlineReady": false,
@@ -821,7 +821,7 @@
   {
    "slug": "fridge-board",
    "title": "Boyd Fridge Board \ud83e\uddf2",
-   "blurb": "A warm, kid-friendly progress board for Char (8th grade) and Vic (6th grade), sized for a kitchen tablet (1280\u00d7800 landscape). It's built only from what the family's\u2026",
+   "blurb": "A warm, kid-friendly progress board for Alex (8th grade) and Sam (6th grade), sized for a kitchen tablet (1280\u00d7800 landscape). It's built only from what the family's\u2026",
    "readme": "fridge-board/README.md",
    "snapshot": null,
    "offlineReady": false,
@@ -848,7 +848,7 @@
   {
    "slug": "hornets-tactics",
    "title": "Hornets Tactics Board \u26bd",
-   "blurb": "A pocket tactics and drill board for Vic's Green Hornets soccer. Drag green-and-gold Hornets and blue away players around a striped, properly marked pitch. Draw solid\u2026",
+   "blurb": "A pocket tactics and drill board for Sam's Blue Comets soccer. Drag green-and-gold Hornets and blue away players around a striped, properly marked pitch. Draw solid\u2026",
    "readme": "hornets-tactics/README.md",
    "snapshot": null,
    "offlineReady": false,
@@ -857,7 +857,7 @@
   {
    "slug": "hspt-quest",
    "title": "HSPT Quest \ud83e\udded",
-   "blurb": "A game-style practice app for Charlotte's HSPT (Nov 17, 2026, at SJE). It is built only from Path's 20 practice sheets. Everything runs on this machine. Progress\u2026",
+   "blurb": "A game-style practice app for Alex's HSPT (Nov 17, 2026, at Northside Academy). It is built only from Path's 20 practice sheets. Everything runs on this machine. Progress\u2026",
    "readme": "hspt-quest/README.md",
    "snapshot": null,
    "offlineReady": false,
@@ -884,7 +884,7 @@
   {
    "slug": "keyboard-kickoff",
    "title": "Keyboard Kickoff",
-   "blurb": "A sports-themed touch-typing trainer for Char and Vic \u2014 home-row lessons, finger-coloured keyboard highlights, then Penalty Kick, Home Run Derby and a Two-Minute\u2026",
+   "blurb": "A sports-themed touch-typing trainer for Alex and Sam \u2014 home-row lessons, finger-coloured keyboard highlights, then Penalty Kick, Home Run Derby and a Two-Minute\u2026",
    "readme": "keyboard-kickoff/README.md",
    "snapshot": null,
    "offlineReady": false,
@@ -928,8 +928,8 @@
   },
   {
    "slug": "math-arcade",
-   "title": "Vic's Math Arcade \ud83c\udfdf\ufe0f",
-   "blurb": "An arcade-style practice game for 6th-grade math, built for Vic (Green Hornets \u26bd, baseball \u26be). It's one offline HTML file with no accounts, no network calls, and no\u2026",
+   "title": "Sam's Math Arcade \ud83c\udfdf\ufe0f",
+   "blurb": "An arcade-style practice game for 6th-grade math, built for Sam (Blue Comets \u26bd, baseball \u26be). It's one offline HTML file with no accounts, no network calls, and no\u2026",
    "readme": "math-arcade/README.md",
    "snapshot": null,
    "offlineReady": false,
@@ -1018,7 +1018,7 @@
   },
   {
    "slug": "season-book",
-   "title": "Season Book: Fall 2026 yearbook + scorebook for Vic and Char",
+   "title": "Season Book: Fall 2026 yearbook + scorebook for Sam and Alex",
    "blurb": "Live: http://127.0.0.1:4246 (box only) \u00b7 /vic and /char give the print layouts \u00b7 /api/season.json returns the data Offline: dist/season-book-snapshot.html is one\u2026",
    "readme": "season-book/README.md",
    "snapshot": null,
@@ -1117,7 +1117,7 @@
   },
   {
    "slug": "writing-studio",
-   "title": "Char's Writing Studio",
+   "title": "Alex's Writing Studio",
    "blurb": "A calm, offline writing-practice app for an 8th grader: pick a prompt \u2192 plan \u2192 write with live feedback \u2192 self-check. Everything runs in the browser. There is no AI,\u2026",
    "readme": "writing-studio/README.md",
    "snapshot": null,

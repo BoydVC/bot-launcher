@@ -168,11 +168,11 @@ for where, url in (("snapshot DOM", "file://" + snap_p), ("server DOM", URL)):
 # filters — kids includes Pam + tutors + Path; Engineering Lead is work/fleet
 kids = dom(URL + "?area=kids")
 names = re.findall(r"<h3>([^<]+)</h3>", kids)
-check(set(names) >= {"Char Tutor", "Pam", "Path", "Vic Tutor"}, f"kids filter includes tutors/Pam/Path → {names}")
+check(set(names) >= {"Alex Tutor", "Pam", "Path", "Sam Tutor"}, f"kids filter includes tutors/Pam/Path → {names}")
 fin = re.findall(r"<h3>([^<]+)</h3>", dom(URL + "?area=finance"))
 check(fin == ["Oscar"], f"finance filter → {fin}")
 srch = re.findall(r"<h3>([^<]+)</h3>", dom(URL + "?q=homework"))
-check(sorted(srch) == ["Char Tutor", "Vic Tutor"], f"search 'homework' → {srch}")
+check(sorted(srch) == ["Alex Tutor", "Sam Tutor"], f"search 'homework' → {srch}")
 
 # Server
 with urllib.request.urlopen(URL + "healthz", timeout=5) as r:
