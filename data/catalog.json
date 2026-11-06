@@ -720,10 +720,10 @@
    "updated": "2026-10-08T20:11-04:00"
   },
   {
-   "slug": "boyd-wall",
+   "slug": "family-wall",
    "title": "\ud83d\udef0\ufe0f Alex Wall: mission control for a TV or second monitor",
    "blurb": "A 1920\u00d71080 dark \"mission control\" dashboard for Alex: SpaceX/Starship/Starlink launches with live T-minus countdowns, a Sports Desk for the Ravens, Terps, Chelsea\u2026",
-   "readme": "boyd-wall/README.md",
+   "readme": "family-wall/README.md",
    "snapshot": null,
    "offlineReady": false,
    "updated": "2026-10-08T20:11-04:00"
