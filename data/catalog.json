@@ -1019,7 +1019,7 @@
   {
    "slug": "season-book",
    "title": "Season Book: Fall 2026 yearbook + scorebook for Sam and Alex",
-   "blurb": "Live: http://127.0.0.1:4246 (box only) \u00b7 /vic and /char give the print layouts \u00b7 /api/season.json returns the data Offline: dist/season-book-snapshot.html is one\u2026",
+   "blurb": "Live: http://127.0.0.1:4246 (box only) \u00b7 /jo and /ri give the print layouts \u00b7 /api/season.json returns the data Offline: dist/season-book-snapshot.html is one\u2026",
    "readme": "season-book/README.md",
    "snapshot": null,
    "offlineReady": false,
