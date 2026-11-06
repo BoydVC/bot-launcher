@@ -17,22 +17,22 @@ UUID_RE = re.compile(
 
 # One-sentence role paraphrases (never quote prompt text). Keyed by profile name.
 ROLES = {
-    "Kelly": "Watches the web and X for AI news, papers and product drops and reports the trends that matter to Boyd.",
-    "Michael": "Boyd's chief of staff and front door, reading mail, Slack and calendar and handing specialist work to the other bots.",
-    "Oscar": "Watches over Boyd's money, from upcoming bills and cash flow to investing, retirement savings and tax time.",
-    "Ryan": "Hunts for concrete, ranked business and side-hustle ideas that fit Boyd's interests.",
+    "Kelly": "Watches the web and X for AI news, papers and product drops and reports the trends that matter to Alex.",
+    "Michael": "Alex's chief of staff and front door, reading mail, Slack and calendar and handing specialist work to the other bots.",
+    "Oscar": "Watches over Alex's money, from upcoming bills and cash flow to investing, retirement savings and tax time.",
+    "Ryan": "Hunts for concrete, ranked business and side-hustle ideas that fit Alex's interests.",
     "Dr. EggBot": "Designs and sets up new Grok Bots for the fleet after asking a few preference questions.",
-    "Boyd Family Times": "Puts together the family's daily household newspaper as a printable PDF.",
+    "Lakeside Family Times": "Puts together the family's daily household newspaper as a printable PDF.",
     "Sam Tutor": "Homework helper for Samuel in 6th grade, explaining and quizzing across subjects.",
-    "Brief": "Writes Boyd's weekday morning brief of the mail, Slack threads and meetings that need him.",
-    "Jim": "Follows what Boyd reads and saves and turns it into interest notes and research.",
-    "Dwight": "Boyd's software engineer, shipping code changes, fixes and investigations.",
+    "Brief": "Writes Alex's weekday morning brief of the mail, Slack threads and meetings that need him.",
+    "Jim": "Follows what Alex reads and saves and turns it into interest notes and research.",
+    "Dwight": "Alex's software engineer, shipping code changes, fixes and investigations.",
     "Pam": "Keeps the family schedule running, covering sports, school, doctor visits, trips and weekend plans.",
-    "Pods": "Checks Boyd's favorite podcast and YouTube channels for new episodes and briefs him on what's worth a listen.",
+    "Pods": "Checks Alex's favorite podcast and YouTube channels for new episodes and briefs him on what's worth a listen.",
     "Path": "Guides Alex's high-school placement journey toward a fall 2027 start.",
     "Alex Tutor": "Homework helper for Alex in 8th grade, explaining and quizzing across subjects.",
     "TokenMax": "Turns leftover subscription usage into fun builds before the weekly and monthly resets.",
-    "Engineering Lead": "Runs Boyd's engineering cadence: breaks work into Cloud Agents, tracks CI and reviews, and only surfaces items that are stuck, merge-ready, or finished.",
+    "Engineering Lead": "Runs Alex's engineering cadence: breaks work into Cloud Agents, tracks CI and reviews, and only surfaces items that are stuck, merge-ready, or finished.",
 }
 AREAS = {
     "Kelly": ["research"],
@@ -40,7 +40,7 @@ AREAS = {
     "Oscar": ["finance"],
     "Ryan": ["research", "work"],
     "Dr. EggBot": ["fleet"],
-    "Boyd Family Times": ["family"],
+    "Lakeside Family Times": ["family"],
     "Sam Tutor": ["kids"],
     "Brief": ["work"],
     "Jim": ["research"],
@@ -52,7 +52,7 @@ AREAS = {
     "TokenMax": ["fleet"],
     "Engineering Lead": ["work", "fleet"],
 }
-# Skip unfinished hatchery stubs that shouldn't appear in Boyd's app store.
+# Skip unfinished hatchery stubs that shouldn't appear in Alex's app store.
 SKIP_NAMES = {"New Bot"}
 
 COLORS = {
@@ -123,7 +123,7 @@ def paraphrase_role(name, title, desc):
         return ROLES[name]
     # Safe fallback: one short sentence from title + first clause, never a 6-word prompt run.
     base = (title or name or "Grok Bot").strip()
-    return f"Specialist bot focused on {base.lower()} for Boyd."
+    return f"Specialist bot focused on {base.lower()} for Alex."
 
 
 def infer_areas(name, title, desc):
@@ -262,7 +262,7 @@ def main():
             "deeplink": DEEPLINK.format(aid),
         })
 
-    # Stable sort: attention first (so Boyd sees them), then name.
+    # Stable sort: attention first (so Alex sees them), then name.
     health_rank = {"attention": 0, "unknown": 1, "healthy": 2}
     bots.sort(key=lambda b: (health_rank.get(b["health"], 9), b["name"].lower()))
 

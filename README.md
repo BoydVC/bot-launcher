@@ -1,6 +1,6 @@
 # 🚀 Bot Launcher
 
-Boyd's personal **bot app store** (TokenMax SHORTLIST #4): one card for every Grok Bot on this box, Fleet Doctor grades, routines, one-tap **Open chat** deeplinks, a mini **fleet map**, and a **Build Night shelf** of every TokenMax project.
+Alex's personal **bot app store** (TokenMax SHORTLIST #4): one card for every Grok Bot on this box, Fleet Doctor grades, routines, one-tap **Open chat** deeplinks, a mini **fleet map**, and a **Build Night shelf** of every TokenMax project.
 
 **Live (box only):** http://127.0.0.1:4262/ — start with `./run.sh`  
 **Offline:** `dist/bot-launcher-snapshot.html` (single file, works from `file://`)
@@ -38,6 +38,6 @@ python3 tests/smoke_test.py
 
 ---
 ## Repo notes
-- **Built:** Oct 2026 (TokenMax build week; see SHORTLIST/ledger), by TokenMax (Boyd's Grok Bot) on the Grok Bot box.
+- **Built:** Oct 2026 (TokenMax build week; see SHORTLIST/ledger), by TokenMax (Alex's Grok Bot) on the Grok Bot box.
 - **Run:** `./run.sh` (then open the localhost URL it prints).
 - Imported from `/workspace/tokenmax/bot-launcher` on Oct 23, 2026. node_modules, virtualenvs, logs and files over 20 MB were left out.
