@@ -22,15 +22,15 @@ ROLES = {
     "Oscar": "Watches over Alex's money, from upcoming bills and cash flow to investing, retirement savings and tax time.",
     "Ryan": "Hunts for concrete, ranked business and side-hustle ideas that fit Alex's interests.",
     "Dr. EggBot": "Designs and sets up new Grok Bots for the fleet after asking a few preference questions.",
-    "Lakeside Family Times": "Puts together the family's daily household newspaper as a printable PDF.",
-    "Sam Tutor": "Homework helper for Samuel in 6th grade, explaining and quizzing across subjects.",
+    "Alex Family Times": "Puts together the family's daily household newspaper as a printable PDF.",
+    "Jordan Tutor": "Homework helper for Jordan in 6th grade, explaining and quizzing across subjects.",
     "Brief": "Writes Alex's weekday morning brief of the mail, Slack threads and meetings that need him.",
     "Jim": "Follows what Alex reads and saves and turns it into interest notes and research.",
     "Dwight": "Alex's software engineer, shipping code changes, fixes and investigations.",
     "Pam": "Keeps the family schedule running, covering sports, school, doctor visits, trips and weekend plans.",
     "Pods": "Checks Alex's favorite podcast and YouTube channels for new episodes and briefs him on what's worth a listen.",
-    "Path": "Guides Alex's high-school placement journey toward a fall 2027 start.",
-    "Alex Tutor": "Homework helper for Alex in 8th grade, explaining and quizzing across subjects.",
+    "Path": "Guides Riley's high-school placement journey toward a fall 2027 start.",
+    "Riley Tutor": "Homework helper for Riley in 8th grade, explaining and quizzing across subjects.",
     "TokenMax": "Turns leftover subscription usage into fun builds before the weekly and monthly resets.",
     "Engineering Lead": "Runs Alex's engineering cadence: breaks work into Cloud Agents, tracks CI and reviews, and only surfaces items that are stuck, merge-ready, or finished.",
 }
@@ -40,15 +40,15 @@ AREAS = {
     "Oscar": ["finance"],
     "Ryan": ["research", "work"],
     "Dr. EggBot": ["fleet"],
-    "Lakeside Family Times": ["family"],
-    "Sam Tutor": ["kids"],
+    "Alex Family Times": ["family"],
+    "Jordan Tutor": ["kids"],
     "Brief": ["work"],
     "Jim": ["research"],
     "Dwight": ["work"],
     "Pam": ["family", "kids"],
     "Pods": ["research"],
     "Path": ["kids"],
-    "Alex Tutor": ["kids"],
+    "Riley Tutor": ["kids"],
     "TokenMax": ["fleet"],
     "Engineering Lead": ["work", "fleet"],
 }
@@ -131,7 +131,7 @@ def infer_areas(name, title, desc):
         return AREAS[name]
     blob = f"{name} {title} {desc}".lower()
     areas = []
-    if any(k in blob for k in ("tutor", "homework", "kid", "school", "alex", "samuel")):
+    if any(k in blob for k in ("tutor", "homework", "kid", "school", "riley", "jordan")):
         areas.append("kids")
     if any(k in blob for k in ("family", "calendar", "household", "sports")):
         areas.append("family")

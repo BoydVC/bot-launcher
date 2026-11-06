@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bot Launcher · Alex's Grok Bot app store</title>
+<style>
+:root{
+  --bg:#0b0f14;--panel:#141a22;--panel2:#1a222d;--line:#2a3442;--ink:#e8edf3;--mute:#8fa0b3;
+  --acc:#7cc4ff;--acc2:#c792ea;--ok:#4cc38a;--warn:#f2b705;--bad:#ef5350;--focus:#9ad0ff;
+}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+a{color:var(--acc)}
+.wrap{max-width:1320px;margin:0 auto;padding:24px 20px 64px}
+header.hero{display:grid;grid-template-columns:1.4fr .9fr;gap:18px;align-items:stretch;margin-bottom:14px}
+@media (max-width:900px){header.hero{grid-template-columns:1fr}}
+.hero-copy h1{margin:0;font-size:30px;letter-spacing:-.02em}
+.hero-copy h1 span{background:linear-gradient(90deg,#7cc4ff,#c792ea,#4cc38a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mute);margin-top:6px;max-width:52ch}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 12px;min-width:88px}
+.stat b{display:block;font-size:20px;line-height:1.1}.stat small{color:var(--mute);font-size:11.5px}
+.stat.warn b{color:var(--warn)}.stat.ok b{color:var(--ok)}.stat.acc b{color:var(--acc)}
+.map-panel{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:12px 14px 10px;display:flex;flex-direction:column;min-height:180px}
+.map-panel h2{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--mute);letter-spacing:.04em;text-transform:uppercase}
+#fleetmap{width:100%;height:150px;display:block}
+.map-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;font-size:11.5px;color:var(--mute)}
+.map-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:1px}
+.controls{position:sticky;top:0;z-index:8;background:rgba(11,15,20,.92);backdrop-filter:blur(10px);padding:12px 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center;border-bottom:1px solid var(--line);margin-bottom:18px}
+#q{flex:1 1 260px;min-width:0;background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px 14px;font-size:15px}
+#q:focus,.chip:focus-visible,.open:focus-visible,.card:focus-visible,.book:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-color:transparent}
+.hint{color:var(--mute);font-size:12px;white-space:nowrap}
+.hint kbd{background:var(--panel2);border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:11px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 13px;font-size:13px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--acc);color:#04121f;border-color:var(--acc);font-weight:600}
+h2.sec{font-size:18px;margin:22px 0 12px;display:flex;align-items:baseline;gap:10px}
+h2.sec small{color:var(--mute);font-weight:400;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:border-color .15s,box-shadow .15s}
+.card:hover,.card:focus-within{border-color:#3d5168;box-shadow:0 0 0 1px rgba(124,196,255,.12)}
+.card.attn{border-color:rgba(242,183,5,.35)}
+.card[tabindex="0"]{cursor:default}
+.top{display:flex;gap:12px;align-items:center}
+.av{flex:0 0 56px;width:56px;height:56px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35))}
+.who{flex:1;min-width:0}.who h3{margin:0;font-size:17px}.who .t{color:var(--mute);font-size:13px}
+.grade{flex:0 0 auto;text-align:center;border-radius:10px;padding:4px 9px;font-weight:800;font-size:18px;border:1px solid var(--line);line-height:1.1;min-width:44px}
+.grade small{display:block;font-size:10px;font-weight:500;color:var(--mute)}
+.gA{color:#4cc38a;background:rgba(76,195,138,.08)}.gB{color:#7cc4ff;background:rgba(124,196,255,.08)}
+.gC{color:#f2b705;background:rgba(242,183,5,.08)}.gD{color:#fb8c00;background:rgba(251,140,0,.08)}.gF{color:#ef5350;background:rgba(239,83,80,.1)}
+.role{margin:0;font-size:14px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+.tag.health-healthy{color:var(--ok);border-color:rgba(76,195,138,.35)}
+.tag.health-attention{color:var(--warn);border-color:rgba(242,183,5,.4)}
+.rt{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.rt li{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:13px}
+.rt .n{font-weight:600}.rt .w{color:var(--ink)}.rt .m{color:var(--mute);font-size:12px}
+.pill{font-size:11px;border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:1px}
+.on{background:rgba(76,195,138,.15);color:var(--ok)}.off{background:rgba(242,183,5,.13);color:var(--warn)}
+.none{color:var(--mute);font-size:13px;font-style:italic}
+.foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:4px;flex-wrap:wrap}
+.last{color:var(--mute);font-size:12.5px}
+.open{display:inline-flex;align-items:center;gap:6px;background:var(--acc);color:#04121f;text-decoration:none;font-weight:700;border-radius:10px;padding:8px 14px;font-size:14px}
+.open:hover{filter:brightness(1.08)}
+details.doc{font-size:12.5px;color:var(--mute)}details.doc summary{cursor:pointer}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.book{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.book:hover{border-color:#3d5168}
+.book b{font-size:14.5px}.book p{margin:0;color:var(--mute);font-size:12.5px;overflow-wrap:anywhere}
+.book .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.badge{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;border-radius:999px;padding:2px 8px;border:1px solid var(--line);color:var(--mute)}
+.badge.ready{color:var(--ok);border-color:rgba(76,195,138,.4);background:rgba(76,195,138,.08)}
+.badge.readme{color:var(--mute)}
+.book .links{display:flex;gap:12px;font-size:13px;margin-top:auto}
+.empty{grid-column:1/-1;color:var(--mute);padding:20px;text-align:center;border:1px dashed var(--line);border-radius:12px}
+footer{margin-top:34px;color:var(--mute);font-size:12px}footer code{color:var(--ink)}
+@media (max-width:560px){
+  .wrap{padding:16px 12px 40px}h1{font-size:24px!important}.grid{grid-template-columns:1fr}.shelf{grid-template-columns:1fr}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);width:100%;gap:6px}.stat{min-width:0;padding:6px 8px}
+  .stat small{font-size:10.5px;line-height:1.2;display:block}.stat b{font-size:16px}
+  .controls{gap:8px}.chips{flex-wrap:nowrap;overflow-x:auto;width:100%;padding-bottom:2px}.chip{flex:0 0 auto}
+  .hint{display:none}#fleetmap{height:130px}
+}
+</style></head>
+<body><div class="wrap">
+<header class="hero">
+ <div class="hero-copy">
+  <div class="kicker">TokenMax · SHORTLIST #4</div>
+  <h1>🚀 <span>Bot Launcher</span></h1>
+  <div class="sub">Alex's personal bot app store — every Grok Bot on this box, with Fleet Doctor grades, routines, and one-tap <b>Open chat</b> deeplinks.</div>
+  <div class="stats" id="stats"></div>
+ </div>
+ <div class="map-panel">
+  <h2>Fleet map</h2>
+  <svg id="fleetmap" viewBox="0 0 400 150" role="img" aria-label="Mini fleet map of bots by area and health"></svg>
+  <div class="map-legend">
+   <span><i style="background:#4cc38a"></i>Healthy (A/B)</span>
+   <span><i style="background:#f2b705"></i>Needs attention</span>
+   <span><i style="background:#7b8794"></i>No grade</span>
+  </div>
+ </div>
+</header>
+<div class="controls">
+ <input id="q" type="search" placeholder="Search bots, routines, projects…  (press / )" aria-label="Search" autocomplete="off">
+ <div class="chips" id="chips" role="toolbar" aria-label="Area filters"></div>
+ <span class="hint"><kbd>/</kbd> search · <kbd>←</kbd><kbd>→</kbd> cards · <kbd>Enter</kbd> open</span>
+</div>
+<h2 class="sec" id="fleeth">Your fleet <small id="count"></small></h2>
+<div class="grid" id="grid"></div>
+<h2 class="sec" id="shelfh">🌙 Build Night shelf <small id="scount"></small></h2>
+<div class="shelf" id="shelf"></div>
+<footer id="foot"></footer>
+</div>
+<script>
+const CATALOG = {"generatedAt": "2026-10-10T08:25-04:00", "doctorGeneratedAt": "2026-10-09T13:32-04:00", "doctorAvailable": true, "fleetScore": 58, "fleetGpa": 2.65, "stats": {"bots": 16, "routines": 15, "activeRoutines": 13, "healthy": 12, "attention": 4, "projects": 53, "offlineReady": 6}, "bots": [{"id": "784bedfc-74d6-45a0-a291-762ff05bb0c6", "name": "Alex Family Times", "title": "", "role": "Puts together the family's daily household newspaper as a printable PDF.", "areas": ["family"], "avatar": {"shape": "circle", "color": "#7b8794", "colorName": "", "initials": "AT", "image": null}, "routines": [], "lastActive": "2026-10-09T05:24-04:00", "doctor": {"grade": "C", "score": 73, "reasons": ["No routines and only 9 logged tool calls/messages in the 30 days before the logs end (last seen Fri Oct 9, 0 days before the logs stop; activity since then can't be measured).", "Family Times couldn't print 5 of the last 7 editions"], "fixes": ["Give the newspaper a printer-health preflight (wake the printer or fall back to a second printer) and have it tell Alex when printing is skipped."]}, "health": "attention", "deeplink": "grokbot://app/v1/agent?id=784bedfc-74d6-45a0-a291-762ff05bb0c6"}, {"id": "4f8fdf55-07d3-4a86-8889-ce26a1565e51", "name": "Engineering Lead", "title": "", "role": "Runs Alex's engineering cadence: breaks work into Cloud Agents, tracks CI and reviews, and only surfaces items that are stuck, merge-ready, or finished.", "areas": ["work", "fleet"], "avatar": {"shape": "flower", "color": "#3d7be0", "colorName": "blue", "initials": "EL", "image": null}, "routines": [], "lastActive": null, "doctor": {"grade": "F", "score": 55, "reasons": ["No routines, tool calls, messages or output files found on this box.", "Engineering Lead has no activity on this box"], "fixes": ["Either give it a routine (a weekly check-in is enough to keep it useful) or archive it."]}, "health": "attention", "deeplink": "grokbot://app/v1/agent?id=4f8fdf55-07d3-4a86-8889-ce26a1565e51"}, {"id": "9abbfaf4-f401-4e70-8619-da598173399a", "name": "Jim", "title": "Interests", "role": "Follows what Alex reads and saves and turns it into interest notes and research.", "areas": ["research"], "avatar": {"shape": "hex", "color": "#3d7be0", "colorName": "blue", "initials": "Ji", "image": null}, "routines": [{"name": "Bill Simmons Sunday 107 fifth pick", "cron": "0 11,15 * * 0", "when": "Sundays at 11:00 AM and 3:00 PM ET", "enabled": true, "runs": 4, "ok": 2, "lastRun": "2026-09-13T15:10-04:00"}, {"name": "Daily podcast listen brief", "cron": "0 7 * * *", "when": "Every day at 7:00 AM ET", "enabled": true, "runs": 6, "ok": 6, "lastRun": "2026-09-15T07:26-04:00"}, {"name": "Jim daily interest note", "cron": "0 20 * * *", "when": "Every day at 8:00 PM ET", "enabled": true, "runs": 8, "ok": 8, "lastRun": "2026-09-15T20:24-04:00"}], "lastActive": "2026-10-08T20:11-04:00", "doctor": {"grade": "D", "score": 61, "reasons": ["watch \u201cBill Simmons Sunday 107 fifth pick\u201d already found its answer but is still scheduled", "11 tool calls errored (11 of 95 logged)"], "fixes": ["Suggestion: pause or delete this routine, or give the prompt an end date (\"stop after the pick is found\")."]}, "health": "attention", "deeplink": "grokbot://app/v1/agent?id=9abbfaf4-f401-4e70-8619-da598173399a"}, {"id": "5ea76ec0-2e44-46be-993a-11bc6ba30958", "name": "Oscar", "title": "Finances", "role": "Watches over Alex's money, from upcoming bills and cash flow to investing, retirement savings and tax time.", "areas": ["finance"], "avatar": {"shape": "squircle", "color": "#43a047", "colorName": "green", "initials": "Os", "image": null}, "routines": [{"name": "Due-soon bills and money surprises", "cron": "45 8 * * 1-5", "when": "Weekdays at 8:45 AM ET", "enabled": true, "runs": 2, "ok": 2, "lastRun": "2026-09-15T09:00-04:00"}, {"name": "Watch for Kia Finance statement", "cron": "31 8 * * 1-5", "when": "Weekdays at 8:31 AM ET", "enabled": true, "runs": 16, "ok": 16, "lastRun": "2026-09-15T09:19-04:00"}, {"name": "Weekly household cash snapshot", "cron": "15 8 * * 1", "when": "Mondays at 8:15 AM ET", "enabled": true, "runs": 1, "ok": 1, "lastRun": "2026-09-14T08:39-04:00"}], "lastActive": "2026-10-08T20:11-04:00", "doctor": {"grade": "D", "score": 66, "reasons": ["8 tool calls errored (8 of 333 logged)", "\u201cDue-soon bills and money surprises\u201d \u2248 34 agent-minutes/week"], "fixes": ["Suggestion: check the Google Drive connection is still authorized, and add a line to the routine prompt like \"if Google Drive errors, say so once and stop instead of retrying\"."]}, "health": "attention", "deeplink": "grokbot://app/v1/agent?id=5ea76ec0-2e44-46be-993a-11bc6ba30958"}, {"id": "84ee99ac-e314-4642-a27b-89b81a591547", "name": "Brief", "title": "Morning Brief", "role": "Writes Alex's weekday morning brief of the mail, Slack threads and meetings that need him.", "areas": ["work"], "avatar": {"shape": "wedge", "color": "#90a4ae", "colorName": "gray", "initials": "Br", "image": null}, "routines": [{"name": "Morning attention brief", "cron": "0 8 * * 1-5", "when": "Weekdays at 8:00 AM ET", "enabled": true, "runs": 3, "ok": 3, "lastRun": "2026-09-14T08:43-04:00"}], "lastActive": "2026-10-08T20:10-04:00", "doctor": {"grade": "B", "score": 88, "reasons": ["\u201cMorning attention brief\u201d missed 2 of 4 scheduled runs"], "fixes": ["Check the schedule is still enabled and whether a run is being skipped (quiet hours, errors, or the bot being busy)."]}, "health": "healthy", "deeplink": "grokbot://app/v1/agent?id=84ee99ac-e314-4642-a27b-89b81a591547"}, {"id": "ff5dfcd2-09b9-49dd-952f-14893da73ab0", "name": "Riley Tutor", "title": "8th Grade Tutor", "role": "Homework helper for Riley in 8th grade, explaining and quizzing across subjects.", "areas": ["kids"], "avatar": {"shape": "cloud", "color": "#8e6be8", "colorName": "violet", "initials": "RT", "image": null}, "routines": [{"name": "Riley weeknight homework check-in", "cron": "45 17 * * *", "when": "Every day at 5:45 PM ET", "enabled": true, "runs": 7, "ok": 7, "lastRun": "2026-09-15T19:14-04:00"}], "lastActive": "2026-10-08T20:10-04:00", "doctor": {"grade": "A", "score": 90, "reasons": ["Twin routines: \u201cJordan weeknight homework check-in\u201d and \u201cRiley weeknight homework check-in\u201d", "\u201cRiley weeknight homework check-in\u201d also runs on weekends"], "fixes": ["Move the shared rules into one skill or doc that both prompts reference, and keep only the kid-specific parts in each routine."]}, "health": "healthy", "deeplink": "grokbot://app/v1/agent?id=ff5dfcd2-09b9-49dd-952f-14893da73ab0"}, {"id": "759c205a-40a5-4e74-9620-3c04714824f4", "name": "Dr. EggBot", "title": "Bot Creator", "role": "Designs and sets up new Grok Bots for the fleet after asking a few preference questions.", "areas": ["fleet"], "avatar": {"shape": "teardrop", "color": "#ef5350", "colorName": "red", "initials": "DE", "image": null}, "routines": [{"name": "routine-healthcheck", "cron": "35 6 * * 1", "when": "Mondays at 6:35 AM ET", "enabled": true, "runs": 2, "ok": 2, "lastRun": "2026-09-14T06:39-04:00"}, {"name": "transcript-healthcheck", "cron": "30 6 * * 1-5", "when": "Weekdays at 6:30 AM ET", "enabled": true, "runs": 7, "ok": 7, "lastRun": "2026-09-15T06:40-04:00"}], "lastActive": "2026-10-08T20:10-04:00", "doctor": {"grade": "A", "score": 95, "reasons": ["\u201ctranscript-healthcheck\u201d and \u201croutine-healthcheck\u201d fire within 20 minutes"], "fixes": ["Merge them into one morning run, or stagger them so the second can reuse the first's results."]}, "health": "healthy", "deeplink": "grokbot://app/v1/agent?id=759c205a-40a5-4e74-9620-3c04714824f4"}, {"id": "d0afda46-7287-40c1-b934-70ab9225584e", "name": "Dwight", "title": "Code Monkey", "role": "Alex's software engineer, shipping code changes, fixes and investigations.", "areas": ["work"], "avatar": {"shape": "teardrop", "color": "#f2b705", "colorName": "yellow", "initials": "Dw", "image": null}, "routines": [], "lastActive": "2026-09-10T18:36-04:00", "doctor": {"grade": "B", "score": 85, "reasons": ["No routines and only 7 logged tool calls/messages in the 30 days before the logs end (last seen Thu Sep 10, 5 days before the logs stop; activity since then can't be measured)."], "fixes": ["Suggestion: give it a small weekly job that fits its role, or archive it to cut clutter."]}, "health": "healthy", "deeplink": "grokbot://app/v1/agent?id=d0afda46-7287-40c1-b934-70ab9225584e"}, {"id": "3e3aaa23-1281-43d0-9cac-e38e22ba5be0", "name": "Kelly", "title": "Trends", "role": "Watches the web and X for AI news, papers and product drops and reports the trends that matter to Alex.", "areas": ["research"], "avatar": {"shape": "pebble", "color": "#f2b705", "colorName": "yellow", "initials": "Ke", "image": null}, "routines": [], "lastActive": "2026-09-11T13:29-04:00", "doctor": {"grade": "B", "score": 85, "reasons": ["No routines and only 11 logged tool calls/messages in the 30 days before the logs end (last seen Fri Sep 11, 4 days before the logs stop; activity since then can't be measured)."], "fixes": ["Suggestion: give it a small weekly job that fits its role, or archive it to cut clutter."]}, "health": "healthy", "deeplink": "grokbot://app/v1/agent?id=3e3aaa23-1281-43d0-9cac-e38e22ba5be0"}, {"id": "4feb1fc5-075b-4294-a694-3fa562e5785b", "name": "Michael", "title": "Chief of Staff", "role": "Alex's chief of staff and front door, reading mail, Slack and calendar and handing specialist work to the other bots.", "areas": ["work", "family"], "avatar": {"shape": "blob", "color": "#ef5350", "colorName": "red", "initials": "Mi", "image": null}, "routines": [{"name": "Jim daily interest note", "cron": "0 20 * * *", "when": "Every day at 8:00 PM ET", "enabled": false, "runs": 17, "ok": 17, "lastRun": "2026-09-07T20:26-04:00"}, {"name": "Morning attention brief", "cron": "0 8 * * 1-5", "when": "Weekdays at 8:00 AM ET", "enabled": false, "runs": 13, "ok": 13, "lastRun": "2026-09-08T08:49-04:00"}], "lastActive": "2026-10-08T20:10-04:00", "doctor": {"grade": "B", "score": 85, "reasons": ["Leftover paused copy of \u201cJim daily interest note\u201d", "Leftover paused copy of \u201cMorning attention brief\u201d"], "fixes": ["Delete the paused copy so Jim is the single owner."]}, "health": "healthy", "deeplink": "grokbot://app/v1/agent?id=4feb1fc5-075b-4294-a694-3fa562e5785b"}, {"id": "e1bfeb52-89c2-48fa-b6dd-b4dcf9ed54e1", "name": "Pam", "title": "Family Logistics", "role": "Keeps the family schedule running, covering sports, school, doctor visits, trips and weekend plans.", "areas": ["family", "kids"], "avatar": {"shape": "tablet", "color": "#00acc1", "colorName": "cyan", "initials": "Pa", "image": null}, "routines": [{"name": "Weekday family calendar scan", "cron": "30 7 * * 1-5", "when": "Weekdays at 7:30 AM ET", "enabled": true, "runs": 18, "ok": 18, "lastRun": "2026-09-15T07:31-04:00"}], "lastActive": "2026-10-08T20:10-04:00", "doctor": {"grade": "A", "score": 95, "reasons": ["4 tool calls errored (4 of 265 logged)"], "fixes": ["Suggestion: check the Gmail (Sam) connection is still authorized, and add a line to the routine prompt like \"if Gmail (Sam) errors, say so once and stop instead of retrying\"."]}, "health": "healthy", "deeplink": "grokbot://app/v1/agent?id=e1bfeb52-89c2-48fa-b6dd-b4dcf9ed54e1"}, {"id": "fd400f67-24e0-40fd-9d9f-fcdcb2969805", "name": "Path", "title": "High School Path", "role": "Guides Riley's high-school placement journey toward a fall 2027 start.", "areas": ["kids"], "avatar": {"shape": "circle", "color": "#7b8794", "colorName": "", "initials": "Pa", "image": null}, "routines": [], "lastActive": "2026-10-09T06:57-04:00", "doctor": {"grade": "B", "score": 85, "reasons": ["No routines and only 3 logged tool calls/messages in the 30 days before the logs end (last seen Fri Oct 9, 0 days before the logs stop; activity since then can't be measured)."], "fixes": ["Suggestion: give it a small weekly job that fits its role, or archive it to cut clutter."]}, "health": "healthy", "deeplink": "grokbot://app/v1/agent?id=fd400f67-24e0-40fd-9d9f-fcdcb2969805"}, {"id": "ed1121b7-dd17-4061-880f-70ebed7c8250", "name": "Pods", "title": "", "role": "Checks Alex's favorite podcast and YouTube channels for new episodes and briefs him on what's worth a listen.", "areas": ["research"], "avatar": {"shape": "circle", "color": "#7b8794", "colorName": "", "initials": "Po", "image": null}, "routines": [], "lastActive": "2026-10-08T20:11-04:00", "doctor": {"grade": "B", "score": 85, "reasons": ["No routines and only 2 logged tool calls/messages in the 30 days before the logs end (last seen Thu Oct 8, 0 days before the logs stop; activity since then can't be measured)."], "fixes": ["Suggestion: give it a small weekly job that fits its role, or archive it to cut clutter."]}, "health": "healthy", "deeplink": "grokbot://app/v1/agent?id=ed1121b7-dd17-4061-880f-70ebed7c8250"}, {"id": "6a33ea82-5497-43fa-a644-aebed89a6bf6", "name": "Ryan", "title": "Entrepreneur", "role": "Hunts for concrete, ranked business and side-hustle ideas that fit Alex's interests.", "areas": ["research", "work"], "avatar": {"shape": "squircle", "color": "#ef5350", "colorName": "red", "initials": "Ry", "image": null}, "routines": [{"name": "Weekly idea digest", "cron": "0 7 * * 1", "when": "Mondays at 7:00 AM ET", "enabled": true, "runs": 1, "ok": 1, "lastRun": "2026-09-14T07:07-04:00"}], "lastActive": "2026-10-08T20:10-04:00", "doctor": {"grade": "A", "score": 100, "reasons": ["Nothing flagged in the logged window."], "fixes": []}, "health": "healthy", "deeplink": "grokbot://app/v1/agent?id=6a33ea82-5497-43fa-a644-aebed89a6bf6"}, {"id": "b56dd939-08e7-4c0a-82af-140a51de11b4", "name": "TokenMax", "title": "", "role": "Turns leftover subscription usage into fun builds before the weekly and monthly resets.", "areas": ["fleet"], "avatar": {"shape": "sparkle", "color": "#d63aa8", "colorName": "magenta", "initials": "To", "image": null}, "routines": [], "lastActive": "2026-10-09T13:32-04:00", "doctor": {"grade": "A", "score": 100, "reasons": ["Nothing flagged in the logged window."], "fixes": []}, "health": "healthy", "deeplink": "grokbot://app/v1/agent?id=b56dd939-08e7-4c0a-82af-140a51de11b4"}, {"id": "7e4990fe-38aa-4d6d-aa6b-c87baad5f8d1", "name": "Jordan Tutor", "title": "6th Grade Tutor", "role": "Homework helper for Jordan in 6th grade, explaining and quizzing across subjects.", "areas": ["kids"], "avatar": {"shape": "cloud", "color": "#fb8c00", "colorName": "orange", "initials": "JT", "image": null}, "routines": [{"name": "Jordan weeknight homework check-in", "cron": "15 18 * * *", "when": "Every day at 6:15 PM ET", "enabled": true, "runs": 7, "ok": 7, "lastRun": "2026-09-15T19:14-04:00"}], "lastActive": "2026-10-08T20:10-04:00", "doctor": {"grade": "B", "score": 85, "reasons": ["Twin routines: \u201cJordan weeknight homework check-in\u201d and \u201cRiley weeknight homework check-in\u201d", "40 min of screen-driving (computer use)"], "fixes": ["Move the shared rules into one skill or doc that both prompts reference, and keep only the kid-specific parts in each routine."]}, "health": "healthy", "deeplink": "grokbot://app/v1/agent?id=7e4990fe-38aa-4d6d-aa6b-c87baad5f8d1"}], "shelf": [{"slug": "agent-playbook", "title": "Agent Playbook", "blurb": "An interactive field guide. It distills Alex's bookmarks on personal agent systems, AI coding and pstack / @poteto into 11 concrete patterns, then holds his Grok Bot\u2026", "readme": "agent-playbook/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "ai-ops-atlas", "title": "\ud83d\uddfa\ufe0f AI Ops Atlas: KPD Law Group internal operations", "blurb": "Where can AI safely take busywork off KPD's plate, and in what order? This is an interactive, research-backed map of AI opportunities across KPD Law Group's internal\u2026", "readme": "ai-ops-atlas/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "backyard-sky", "title": "Backyard Sky Tonight", "blurb": "A dark-mode sky guide for Alex, Riley (13) and Jordan (11): what's up tonight and the next three nights from the backyard in Lakeside, MD. The page uses a town-center\u2026", "readme": "backyard-sky/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "bookmark-atlas", "title": "Bookmark Atlas", "blurb": "An interactive dark-mode explorer of everything Alex bookmarked on X and everything his research bots saved about posts he follows. It's built only from\u2026", "readme": "bookmark-atlas/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "bot-island-3d", "title": "\ud83c\udfdd\ufe0f Bot Island 3D", "blurb": "A Three.js remake of Bot Island, the live map of Alex's Grok Bot fleet. It's built from Bot Island's existing data files, read-only, and nothing in ../bot-island is\u2026", "readme": "bot-island-3d/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "bot-island-arcade", "title": "\ud83d\udef8 Bot Island Arcade", "blurb": "A kid-friendly arcade game set on Bot Island. You're the island's courier drone. You fly real messages between Alex's Grok Bots on real days, at the times they\u2026", "readme": "bot-island-arcade/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "bot-island-timelapse", "title": "\ud83c\udfdd\ufe0f Bot Island Time-lapse", "blurb": "The whole recorded history of Alex's Grok Bot fleet (Aug 20 \u2013 Oct 7, 2026), replayed on the Bot Island map in 80 seconds. Bots walk to work when their routines run\u2026", "readme": "bot-island-timelapse/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "bot-island", "title": "\ud83c\udfdd\ufe0f Bot Island", "blurb": "A living map of Alex's Grok Bot fleet. Every bot (Michael, Pam, Oscar, Jim, Kelly, Dwight, the tutors, the Family Times, Pods, Path, Brief, Ryan, Dr. EggBot,\u2026", "readme": "bot-island/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "family-wall", "title": "\ud83d\udef0\ufe0f Alex Wall: mission control for a TV or second monitor", "blurb": "A 1920\u00d71080 dark \"mission control\" dashboard for Alex: SpaceX/Starship/Starlink launches with live T-minus countdowns, a Sports Desk for the Ravens, Terps, Chelsea\u2026", "readme": "family-wall/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "chelsea-matchday", "title": "Chelsea Matchday", "blurb": "A matchday-programme-style preview of Chelsea v AFC Bournemouth, Premier League. Sat Oct 10, 2026, 10:00 AM ET, Stamford Bridge, London, on Peacock. Built only from\u2026", "readme": "chelsea-matchday/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "chelsea-time-machine", "title": "Blue Since Boyhood: Chelsea FC, 1990s to now", "blurb": "An interactive Chelsea history for Alex, a Chelsea fan since the 1990s. Runs on this box at http://127.0.0.1:4247. An offline single-file copy is at\u2026", "readme": "chelsea-time-machine/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "chelsea-tracker", "title": "Chelsea Season Tracker 2026-27", "blurb": "A broadcast-style, single-page tracker of Chelsea's 2026-27 season, built for Alex by TokenMax. It covers the current Premier League position, results so far,\u2026", "readme": "chelsea-tracker/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "chopsticks", "title": "Chopsticks", "blurb": "Fly a Super Heavy booster home through gusting winds and set its catch pins down on the tower's chopsticks: slow, upright and centred.", "readme": "chopsticks/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "docket-pilot", "title": "Docket Pilot (KPD Law Group, internal prototype)", "blurb": "Drop in a court notice or order (PDF, text, or a scanned PDF/image, which is read by local OCR). Docket Pilot pulls out the court, case number, caption, parties,\u2026", "readme": "docket-pilot/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "explainer-studio", "title": "Explainer Studio", "blurb": "Turns Jim's Interest Journal entries (/workspace/ijresearch.md, ijx.md, ijcontent.md, ijbookmarks.md) into short animated explainer videos: 1080p30 H.264 MP4, 45\u201375\u2026", "readme": "explainer-studio/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "family-week", "title": "Family Week: the Riveras' kitchen-display week planner", "blurb": "Live: http://127.0.0.1:4847 \u00b7 kiosk: /kiosk or /?kiosk=1 \u00b7 ambient: /ambient or /?mode=ambient Offline: dist/family-week-snapshot.html (one self-contained file, about\u2026", "readme": "family-week/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "fleet-doctor", "title": "\ud83e\ude7a Fleet Doctor: a report card for Alex's Grok Bot fleet", "blurb": "TokenMax build night, Oct 7 2026 (shortlist idea #2, \"pstack for bots\").", "readme": "fleet-doctor/README.md", "snapshot": "fleet-doctor/dist/fleet-doctor-snapshot.html", "offlineReady": true, "updated": "2026-10-09T13:32-04:00"}, {"slug": "fleet-funnies", "title": "Fleet Funnies", "blurb": "A daily comic strip starring Alex's Grok Bots. It's generated automatically from Bot Island's fleet data and drawn in hand-made SVG. Every gag is grounded in a real\u2026", "readme": "fleet-funnies/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "fleet-yearbook", "title": "The Fleet \u201926 \u2014 Grok Bot Yearbook", "blurb": "A high-school-yearbook-style book about Alex's Grok Bot fleet (TokenMax build night, Oct 7 2026).", "readme": "fleet-yearbook/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "fridge-board", "title": "Alex Fridge Board \ud83e\uddf2", "blurb": "A warm, kid-friendly progress board for Riley (8th grade) and Jordan (6th grade), sized for a kitchen tablet (1280\u00d7800 landscape). It's built only from what the family's\u2026", "readme": "fridge-board/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "grok-council", "title": "Grok Council", "blurb": "Local three-model debate console (dry-run / mock only). Grok, Claude, and Codex argue a question through three rounds toward a scored consensus. No API keys. Works\u2026", "readme": "grok-council/README.md", "snapshot": "grok-council/dist/grok-council.html", "offlineReady": true, "updated": "2026-10-09T08:28-04:00"}, {"slug": "hannahs-drive", "title": "Hannah's Big Drive \ud83d\ude97", "blurb": "A toddler/preschooler driving-dashboard toy for Hannah (Adam's daughter). One offline HTML file, no internet, nothing to buy, no links out, no way to lose, no reading\u2026", "readme": "hannahs-drive/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "hornets-tactics", "title": "Hornets Tactics Board \u26bd", "blurb": "A pocket tactics and drill board for Jordan's Blue Comets soccer. Drag green-and-gold Hornets and blue away players around a striped, properly marked pitch. Draw solid\u2026", "readme": "hornets-tactics/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "hspt-quest", "title": "HSPT Quest \ud83e\udded", "blurb": "A game-style practice app for Riley's HSPT (Nov 17, 2026, at Northside Academy). It is built only from Path's 20 practice sheets. Everything runs on this machine. Progress\u2026", "readme": "hspt-quest/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "hub", "title": "TokenMax Hub", "blurb": "One launch screen for everything TokenMax built on Oct 7, 2026, plus a one-tap launcher for every Grok Bot in Alex's fleet.", "readme": "hub/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "job-health-prototype", "title": "\ud83e\ude7a KPD Job Health Board: clickable design prototype (example data)", "blurb": "It's meant to let Alex see the board before deciding whether to hand the kit's prompt to a Cursor agent.", "readme": "job-health-prototype/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "keyboard-kickoff", "title": "Keyboard Kickoff", "blurb": "A sports-themed touch-typing trainer for Riley and Jordan \u2014 home-row lessons, finger-coloured keyboard highlights, then Penalty Kick, Home Run Derby and a Two-Minute\u2026", "readme": "keyboard-kickoff/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "kpd-ai-deck", "title": "KPD AI Operations: What we've built, what's next (DRAFT)", "blurb": "Draft deck for Alex Rivera's own review. Nothing has been sent or shared. KPD internal operations only.", "readme": "kpd-ai-deck/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "kpd-build-kits", "title": "KPD Build Kits (TokenMax build night, Oct 7 2026)", "blurb": "Five launch-ready build kits, each with a cloud-agent prompt, for Alex at KPD Law Group. Internal use only.", "readme": "kpd-build-kits/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "kpd-code-atlas", "title": "KPD Code Atlas (TokenMax build night)", "blurb": "A map of KPD's code: 62 repositories, made up of all 56 in the kpdlawgroup org plus 6 KPD work repos in Alex's BoydVC account (suit-kahuna, cp-imports-watcher,\u2026", "readme": "kpd-code-atlas/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "llm-box-advisor", "title": "\ud83d\udda5\ufe0f Local LLM Box Advisor", "blurb": "Could Alex run his Grok Bot fleet, or parts of it, on his own hardware, and what would it take? This is an interactive local web app that answers that question from\u2026", "readme": "llm-box-advisor/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "math-arcade", "title": "Jordan's Math Arcade \ud83c\udfdf\ufe0f", "blurb": "An arcade-style practice game for 6th-grade math, built for Jordan (Blue Comets \u26bd, baseball \u26be). It's one offline HTML file with no accounts, no network calls, and no\u2026", "readme": "math-arcade/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "mission-control", "title": "Mission Control \u2014 SpaceX \u00b7 Starship \u00b7 Starlink wall", "blurb": "A cinematic dark wall dashboard for Alex (TokenMax; SHORTLIST idea #7). Remastered Sat Oct 10, 2026 for the Saturday daily-usage-check.", "readme": "mission-control/README.md", "snapshot": "mission-control/dist/mission-control-snapshot.html", "offlineReady": true, "updated": "2026-10-10T08:23-04:00"}, {"slug": "museum", "title": "Build Night Museum", "blurb": "A walkable 3D art gallery of everything TokenMax built on Oct 7, 2026: each project hangs as a framed painting with a museum placard.", "readme": "museum/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "orioles-2026", "title": "Orioles 2026 \u00b7 Season in Review", "blurb": "An interactive scrapbook of the Baltimore Orioles' 2026 regular season, built for Alex by TokenMax.", "readme": "orioles-2026/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "pods-radio", "title": "Pods Radio \ud83d\udcfb", "blurb": "A daily radio show produced automatically from the YouTube and podcast feeds that Alex's Pods bot watches: All-In, Moonshots (Peter Diamandis), Jesse Michels, and\u2026", "readme": "pods-radio/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "prompt-polisher", "title": "\u2728 Fleet Prompt Polisher", "blurb": "TokenMax build night, Oct 7 2026. This is a read-only review of all 15 Grok Bots in Alex's fleet: Michael, Pam, Oscar, Jim, Kelly, Ryan, Dwight, Brief, Pods, Path,\u2026", "readme": "prompt-polisher/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "ravens-film-room", "title": "Ravens Film Room", "blurb": "Interactive breakdown of the Baltimore Ravens' most recent completed game, plus a Scouting Report tab for the next game. Built only from ESPN's free public JSON.", "readme": "ravens-film-room/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "ravens-sim", "title": "Ravens Season Sim 2026 (TokenMax build night)", "blurb": "An interactive 2026 Baltimore Ravens season simulator styled like a purple-and-gold broadcast graphic. It runs 10,000 Monte Carlo simulations of every remaining NFL\u2026", "readme": "ravens-sim/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "recap", "title": "Build Night Recap \u2014 Oct 7, 2026", "blurb": "A printable program (US Letter PDF, 2\u20134 pages) and a 1920\u00d71080 poster summarizing everything TokenMax built tonight.", "readme": "recap/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "routine-radar", "title": "Routine Radar", "blurb": "Nothing is sent or changed. Prompt text is never collected. Empty automation folders show a graceful empty state.", "readme": "routine-radar/README.md", "snapshot": "routine-radar/dist/routine-radar.html", "offlineReady": true, "updated": "2026-10-09T13:32-04:00"}, {"slug": "season-book", "title": "Season Book: Fall 2026 yearbook + scorebook for Jordan and Riley", "blurb": "Live: http://127.0.0.1:4246 (box only) \u00b7 /jo and /ri give the print layouts \u00b7 /api/season.json returns the data Offline: dist/season-book-snapshot.html is one\u2026", "readme": "season-book/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "ship-it-stats", "title": "\ud83d\ude80 Ship-it Stats", "blurb": "A @poteto-style \"how I shipped N PRs\" scoreboard for Alex's own agent work. It charts tool calls, routine runs, files written and bot-to-bot messages per bot per day,\u2026", "readme": "ship-it-stats/README.md", "snapshot": "ship-it-stats/dist/ship-it-stats-snapshot.html", "offlineReady": true, "updated": "2026-10-10T08:24-04:00"}, {"slug": "slack-pulse", "title": "Slack Pulse (TokenMax build night)", "blurb": "A 14-day work dashboard for Alex (kpdlawgroup Slack) covering Sep 24 to Oct 7, 2026 (ET). It is built only from read-only pulls through the user-Slack connector:\u2026", "readme": "slack-pulse/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "sports-desk", "title": "The Sports Desk", "blurb": "A newspaper-style sports front for Alex's teams (Ravens, Chelsea, Orioles, Terps men's basketball), with ESPN-style data viz and a Sunday Mode weekend watch-card\u2026", "readme": "sports-desk/README.md", "snapshot": "sports-desk/dist/sports-desk-snapshot.html", "offlineReady": true, "updated": "2026-10-10T08:22-04:00"}, {"slug": "starlink-globe", "title": "\ud83d\udef0\ufe0f Starlink Globe (TokenMax build night, Oct 7 2026)", "blurb": "A 3D globe of the real current Starlink constellation. Every dot comes from CelesTrak's public GP element sets. Your browser propagates each one with SGP4, so nothing\u2026", "readme": "starlink-globe/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "terps-football", "title": "Terps Football 2026 Tracker", "blurb": "A broadcast-style season tracker for Maryland football (2026), built for Alex (UMD alum) by TokenMax. The design is red, gold and black with a Maryland-flag band, a\u2026", "readme": "terps-football/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "terps-preview", "title": "Terps Hoops 2026\u201327 Preview", "blurb": "A preseason magazine-style preview of Maryland men's basketball, built for Alex (UMD) by TokenMax.", "readme": "terps-preview/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "times-archive", "title": "Times Archive: The Alex Family Times, bound and shelved", "blurb": "A searchable archive of every saved edition of The Alex Family Times, Alex's daily household newspaper bot. It's built only from files on this box, it stays local,\u2026", "readme": "times-archive/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "trailer", "title": "Build Night Trailer", "blurb": "A cinematic 60\u201390 s trailer of everything TokenMax built on Oct 7, 2026 from Alex's leftover Grok Bot usage.", "readme": "trailer/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "trip-kit", "title": "NCBA Trip Kit: Alex at NCBA Connect 2026, Orlando (Oct 12\u201315)", "blurb": "Live: http://127.0.0.1:4143 (box only) Offline: dist/trip-kit-snapshot.html is one self-contained file (about 0.5 MB) that works from file://. Print:\u2026", "readme": "trip-kit/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "trivia-night", "title": "Alex Family Trivia Night", "blurb": "A Jeopardy-style game for the kitchen TV. It has 6 categories \u00d7 5 values, 3 different boards (A \u00b7 Crabs & Chopsticks, B \u00b7 Purple Reign, C \u00b7 Blue Skies) and a Final\u2026", "readme": "trivia-night/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}, {"slug": "writing-studio", "title": "Riley's Writing Studio", "blurb": "A calm, offline writing-practice app for an 8th grader: pick a prompt \u2192 plan \u2192 write with live feedback \u2192 self-check. Everything runs in the browser. There is no AI,\u2026", "readme": "writing-studio/README.md", "snapshot": null, "offlineReady": false, "updated": "2026-10-08T20:11-04:00"}], "notes": ["Catalog refreshed from live agent profiles and automations on this box.", "No avatar image files exist in bot profiles, so cards use each bot's profile color and shape with initials.", "Routines come from automations on this box; bots without a folder there show 'No routines on this box'.", "Last activity and grades come from Fleet Doctor when report.json is present; otherwise grades are omitted."]};
+const BASE = "../../";
+const GH = "https://github.com/BoydVC/"; // sibling projects live in their own repos, so link there instead of ../../ paths that 404 from a fresh checkout
+const AREAS = [["all","All"],["family","Family"],["work","Work"],["finance","Finance"],["research","Research"],["kids","Kids"],["fleet","Fleet ops"],["attention","Needs attention"]];
+const AREA_LANES = {family:0, work:1, finance:2, research:3, kids:4, fleet:5};
+const SHAPES = {
+ circle:'<circle cx="50" cy="50" r="44"/>',
+ pebble:'<path d="M50 8c26 0 44 16 44 40 0 27-20 44-46 44C22 92 6 76 6 52 6 26 25 8 50 8z"/>',
+ blob:'<path d="M53 6c20 2 38 16 40 36 3 22-10 44-32 50-23 6-48-5-54-27C1 43 13 18 33 9c6-3 13-3 20-3z"/>',
+ squircle:'<path d="M50 6C86 6 94 14 94 50S86 94 50 94 6 86 6 50 14 6 50 6z"/>',
+ teardrop:'<path d="M50 4C50 4 88 44 88 62a38 38 0 0 1-76 0C12 44 50 4 50 4z"/>',
+ cloud:'<path d="M28 84C14 84 6 74 6 62c0-11 8-20 19-21 2-17 14-29 30-29 15 0 27 10 30 24 9 3 15 11 15 21 0 15-11 27-26 27z"/>',
+ wedge:'<path d="M12 14h76c4 0 6 4 4 8L54 90c-2 4-6 4-8 0L8 22c-2-4 0-8 4-8z"/>',
+ hex:'<path d="M50 4l40 23v46L50 96 10 73V27z"/>',
+ sparkle:'<path d="M50 2c4 24 14 34 46 48-32 14-42 24-46 48-4-24-14-34-46-48C36 36 46 26 50 2z"/>',
+ tablet:'<rect x="16" y="6" width="68" height="88" rx="14"/>',
+ flower:'<path d="M50 18c8-14 28-14 28 4 0 10-8 16-14 18 12 2 22 14 14 26-6 10-18 8-22 4 4 12-2 24-16 24s-20-12-16-24c-4 4-16 6-22-4-8-12 2-24 14-26-6-2-14-8-14-18 0-18 20-18 28-4 2 8 6 12 10 14 4-2 8-6 10-14z"/>'
+};
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const NOW = Date.now();
+function ago(iso){
+  if(!iso) return "no activity found";
+  const d=(NOW-new Date(iso))/6e4;
+  if(d<1) return "just now"; if(d<60) return Math.round(d)+" min ago";
+  if(d<1440) return Math.round(d/60)+" h ago"; return Math.round(d/1440)+" days ago";
+}
+function et(iso){
+  if(!iso) return "";
+  return new Date(iso).toLocaleString("en-US",{timeZone:"America/New_York",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})+" ET";
+}
+function avatar(a){
+  if(a.image) return `<img class="av" src="${esc(a.image)}" alt="">`;
+  const shape = SHAPES[a.shape] || SHAPES.circle;
+  const gid = `g${a.initials}${a.shape}${a.colorName||""}`.replace(/[^A-Za-z0-9]/g,"");
+  const fs = a.initials.length>1?34:40;
+  const ty = a.shape==='teardrop'?66:(a.shape==='flower'?54:58);
+  return `<svg class="av" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="${gid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a.color}" stop-opacity="1"/><stop offset="1" stop-color="${a.color}" stop-opacity=".62"/></linearGradient></defs><g fill="url(#${gid})">${shape}</g><text x="50" y="${ty}" text-anchor="middle" dominant-baseline="middle" font-size="${fs}" font-weight="800" fill="#fff" font-family="inherit">${esc(a.initials)}</text></svg>`;
+}
+function card(b){
+  const g=b.doctor;
+  const gr = g ? `<div class="grade g${esc(g.grade)}" title="Fleet Doctor score ${g.score}">${esc(g.grade)}<small>Doctor</small></div>` : `<div class="grade" title="No Fleet Doctor grade"><span style="font-size:12px;color:var(--mute)">—</span><small>Doctor</small></div>`;
+  const rts = b.routines.length
+    ? `<ul class="rt">${b.routines.map(r=>`<li><span class="n">${esc(r.name)}</span><span class="pill ${r.enabled?'on':'off'}">${r.enabled?'active':'paused'}</span><br><span class="w">${esc(r.when)}</span><br><span class="m">${r.runs} runs, ${r.ok} ok${r.lastRun?` · last ${esc(et(r.lastRun))}`:""}</span></li>`).join("")}</ul>`
+    : `<div class="none">No routines on this box</div>`;
+  const doc = g && (g.reasons.length||g.fixes.length)
+    ? `<details class="doc"><summary>Fleet Doctor notes (score ${g.score})</summary>${g.reasons.map(x=>`<div>• ${esc(x)}</div>`).join("")}${g.fixes.map(x=>`<div>→ ${esc(x)}</div>`).join("")}</details>`
+    : "";
+  const healthTag = b.health==="attention"
+    ? `<span class="tag health-attention">needs attention</span>`
+    : (b.health==="healthy" ? `<span class="tag health-healthy">healthy</span>` : "");
+  return `<article class="card${b.health==='attention'?' attn':''}" data-id="${b.id}" data-deeplink="${esc(b.deeplink)}" tabindex="0">
+ <div class="top">${avatar(b.avatar)}<div class="who"><h3>${esc(b.name)}</h3><div class="t">${esc(b.title||"Grok Bot")}</div></div>${gr}</div>
+ <p class="role">${esc(b.role)}</p>
+ <div class="tags">${b.areas.map(a=>`<span class="tag">${esc(a)}</span>`).join("")}${healthTag}</div>
+ ${rts}${doc}
+ <div class="foot"><span class="last" title="${esc(et(b.lastActive))}">Last active ${esc(ago(b.lastActive))}${b.lastActive?` · ${esc(et(b.lastActive))}`:""}</span>
+ <a class="open" href="${esc(b.deeplink)}">💬 Open chat</a></div></article>`;
+}
+function book(s){
+  const link=(p,l)=>p?`<a href="${esc(GH+p.split("/")[0]+(p.includes("/")?"/blob/HEAD/"+p.split("/").slice(1).join("/"):""))}" target="_blank" rel="noopener">${l}</a>`:"";
+  const badge = s.offlineReady
+    ? `<span class="badge ready">offline dist</span>`
+    : `<span class="badge readme">README only</span>`;
+  return `<div class="book"><div class="meta"><b>${esc(s.title)}</b>${badge}</div><p>${esc(s.blurb||"")}</p><div class="links">${link(s.snapshot,"Open snapshot")}${link(s.readme,"README")}</div></div>`;
+}
+let area="all";
+let focusIdx = -1;
+
+function visibleCards(){ return [...document.querySelectorAll("#grid .card")]; }
+
+function render(){
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  const hit = t => !q || t.toLowerCase().includes(q);
+  const bots = CATALOG.bots.filter(b => {
+    const areaOk = area==="all" || (area==="attention" ? b.health==="attention" : b.areas.includes(area));
+    return areaOk && hit([b.name,b.title,b.role,b.areas.join(" "),b.routines.map(r=>r.name+" "+r.when).join(" "), b.health].join(" "));
+  });
+  document.getElementById("grid").innerHTML = bots.length ? bots.map(card).join("") : `<div class="empty">No bots match.</div>`;
+  document.getElementById("count").textContent = `${bots.length} of ${CATALOG.bots.length} bots`;
+  const shelf = CATALOG.shelf.filter(s => hit([s.title,s.slug,s.blurb||""].join(" ")));
+  document.getElementById("shelf").innerHTML = shelf.length ? shelf.map(book).join("") : `<div class="empty">No projects match.</div>`;
+  const ready = shelf.filter(s=>s.offlineReady).length;
+  document.getElementById("scount").textContent = `${shelf.length} projects · ${ready} with offline dist`;
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed", c.dataset.a===area));
+  focusIdx = -1;
+  drawMap(CATALOG.bots);
+}
+
+function drawMap(bots){
+  const svg = document.getElementById("fleetmap");
+  const lanes = ["family","work","finance","research","kids","fleet"];
+  const laneW = 400 / lanes.length;
+  let html = "";
+  lanes.forEach((lane,i)=>{
+    const x = i*laneW + laneW/2;
+    html += `<text x="${x}" y="14" text-anchor="middle" fill="#8fa0b3" font-size="10">${lane}</text>`;
+    html += `<line x1="${x}" y1="22" x2="${x}" y2="140" stroke="#2a3442" stroke-dasharray="2 4"/>`;
+  });
+  const buckets = {};
+  lanes.forEach(l=>buckets[l]=[]);
+  bots.forEach(b=>{
+    const lane = (b.areas||[]).find(a=>AREA_LANES[a]!=null) || "fleet";
+    buckets[lane].push(b);
+  });
+  lanes.forEach((lane,i)=>{
+    const list = buckets[lane];
+    list.forEach((b,j)=>{
+      const x = i*laneW + laneW/2 + ((j%2)?8:-8);
+      const y = 36 + Math.floor(j/1)*18;
+      if(y>140) return;
+      const col = b.health==="healthy" ? "#4cc38a" : (b.health==="attention" ? "#f2b705" : "#7b8794");
+      const r = b.health==="attention" ? 7 : 5.5;
+      html += `<a href="${esc(b.deeplink)}" aria-label="Open ${esc(b.name)}"><circle cx="${x}" cy="${Math.min(y,138)}" r="${r}" fill="${col}" opacity=".92"><title>${esc(b.name)} · ${esc(b.doctor?b.doctor.grade:"—")}</title></circle></a>`;
+      if(j<8) html += `<text x="${x+10}" y="${Math.min(y,138)+3}" fill="#c5d0dc" font-size="8">${esc(b.avatar.initials)}</text>`;
+    });
+  });
+  svg.innerHTML = html;
+}
+
+function init(){
+  const S = CATALOG.stats || {};
+  const B = CATALOG.bots;
+  const act = S.activeRoutines != null ? S.activeRoutines : B.reduce((n,b)=>n+b.routines.filter(r=>r.enabled).length,0);
+  const healthy = S.healthy != null ? S.healthy : B.filter(b=>b.health==="healthy").length;
+  const attn = S.attention != null ? S.attention : B.filter(b=>b.health==="attention").length;
+  const gpa = CATALOG.fleetGpa != null ? Number(CATALOG.fleetGpa).toFixed(2) : "–";
+  document.getElementById("stats").innerHTML = [
+    [B.length,"bots","acc"],
+    [act,"active routines",""],
+    [healthy,"healthy","ok"],
+    [attn,"needs attention","warn"],
+    [gpa,"fleet GPA",""],
+    [CATALOG.shelf.length,"projects",""]
+  ].map(([v,l,cls])=>`<div class="stat ${cls||""}"><b>${v}</b><small>${l}</small></div>`).join("");
+
+  document.getElementById("chips").innerHTML = AREAS.map(([a,l])=>`<button type="button" class="chip" data-a="${a}">${l}</button>`).join("");
+  document.getElementById("chips").addEventListener("click",e=>{
+    const c=e.target.closest(".chip"); if(c){area=c.dataset.a; render();}
+  });
+  document.getElementById("q").addEventListener("input",render);
+
+  document.addEventListener("keydown", e=>{
+    const tag = (e.target && e.target.tagName||"").toLowerCase();
+    if(e.key==="/" && tag!=="input" && tag!=="textarea"){
+      e.preventDefault(); document.getElementById("q").focus(); return;
+    }
+    const cards = visibleCards();
+    if(!cards.length) return;
+    if(e.key==="ArrowRight" || e.key==="ArrowDown"){
+      if(tag==="input") return;
+      e.preventDefault(); focusIdx = Math.min(cards.length-1, focusIdx+1); cards[focusIdx].focus();
+    } else if(e.key==="ArrowLeft" || e.key==="ArrowUp"){
+      if(tag==="input") return;
+      e.preventDefault(); focusIdx = Math.max(0, focusIdx-1); cards[focusIdx].focus();
+    } else if(e.key==="Enter" && document.activeElement && document.activeElement.classList.contains("card")){
+      const a = document.activeElement.querySelector("a.open");
+      if(a){ e.preventDefault(); a.click(); }
+    }
+  });
+
+  const p=new URLSearchParams(location.search);
+  if(p.get("area")) area=p.get("area");
+  if(p.get("q")) document.getElementById("q").value=p.get("q");
+
+  const docNote = CATALOG.doctorAvailable
+    ? `; grades from Fleet Doctor (${esc(et(CATALOG.doctorGeneratedAt))})`
+    : "; Fleet Doctor report missing — grades omitted";
+  document.getElementById("foot").innerHTML =
+    `Built ${esc(et(CATALOG.generatedAt))} from read-only bot profiles and routines on the box${docNote}. ` +
+    `<b>Open chat</b> uses the exact grokbot agent deeplink for each UUID.<br>${(CATALOG.notes||[]).map(esc).join(" ")}`;
+  render();
+  if(p.get("view")==="shelf"){
+    document.getElementById("grid").style.display="none";
+    document.getElementById("fleeth").style.display="none";
+  }
+}
+init();
+</script><style>.frl-cta{min-height:44px;padding:10px 16px;margin:8px 0;font:inherit;font-weight:700;border-radius:10px;cursor:pointer}</style>
+<script>/* First-Run Lab fix: one obvious primary action */
+(function(){var q=document.getElementById('q');if(!q)return;var b=document.createElement('button');b.type='button';b.className='frl-cta';b.textContent='Search your bots';
+var st=document.createElement('span');st.setAttribute('role','status');var n=0;
+b.addEventListener('click',function(){q.focus();n+=1;st.textContent='Type to filter bots ('+n+')';});
+q.insertAdjacentElement('beforebegin',b);b.insertAdjacentElement('afterend',st);})();</script>
+</body></html>
